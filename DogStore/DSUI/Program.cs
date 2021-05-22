@@ -1,15 +1,15 @@
-﻿using System.IO;
-using DSModels;
-using DSBL;
-using Microsoft.Extensions.Configuration;
+﻿using DSBL;
 using DSDL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Serilog;
+using System.IO;
+
 namespace DSUI
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Setup for DB and Serilog
             var configuration = new ConfigurationBuilder()
@@ -22,9 +22,8 @@ namespace DSUI
                 .WriteTo.File("logs/DogStore.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
             var context = new FannerDogsDBContext(options);
-            IMenu menu = new GeneralMenu(new StoreLocationBL(context),new BuyerBL(context), new OrderBL(context), new ManagerBL(context));
+            IMenu menu = new GeneralMenu(new StoreLocationBL(context), new BuyerBL(context), new OrderBL(context), new ManagerBL(context));
             menu.OnStart();
         }
-        
     }
 }

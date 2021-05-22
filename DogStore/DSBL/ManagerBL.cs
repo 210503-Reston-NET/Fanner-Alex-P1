@@ -1,16 +1,18 @@
-using System.Collections.Generic;
-using DSModels;
 using DSDL;
+using DSModels;
+using System.Collections.Generic;
 using Entity = DSDL.Entities;
+
 namespace DSBL
 {
     public class ManagerBL : IManagerBL
     {
         private Repo _repoDS;
-        public ManagerBL(Entity.FannerDogsDBContext context ){
-            _repoDS =  new Repo(context);
+
+        public ManagerBL(Entity.FannerDogsDBContext context)
+        {
+            _repoDS = new Repo(context);
         }
-        
 
         public DogManager AddManager(DogManager user)
         {

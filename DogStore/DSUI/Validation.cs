@@ -1,7 +1,7 @@
-using System.ComponentModel;
-using System.Text.RegularExpressions;
-using System;
 using Serilog;
+using System;
+using System.Text.RegularExpressions;
+
 namespace DSUI
 {
     public class Validation : IValidation
@@ -15,24 +15,30 @@ namespace DSUI
         {
             string enteredString = "";
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     enteredString = Console.ReadLine();
-                    if(Regex.IsMatch(enteredString, @"^[\w\s]+,\s\w{2}$")){
+                    if (Regex.IsMatch(enteredString, @"^[\w\s]+,\s\w{2}$"))
+                    {
                         repeat = false;
                     }
                     else
                     {
                         Console.WriteLine("Incorrect Format, use Cityname, ST");
                     }
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-            }while(repeat);
+            } while (repeat);
             return enteredString;
         }
+
         /// <summary>
         /// Makes sure double entered for the dog is valid
         /// </summary>
@@ -42,9 +48,11 @@ namespace DSUI
         {
             double enteredDouble = 0;
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     enteredDouble = Double.Parse(Console.ReadLine());
                     if (enteredDouble > 0)
                     {
@@ -54,14 +62,16 @@ namespace DSUI
                     {
                         Console.WriteLine("Must be positive");
                     }
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-
-            }while(repeat);
+            } while (repeat);
             return enteredDouble;
         }
+
         /// <summary>
         /// Makes sure int for quantity is a valid int
         /// </summary>
@@ -71,9 +81,11 @@ namespace DSUI
         {
             int enteredInt = 0;
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     enteredInt = Int32.Parse(Console.ReadLine());
                     if (enteredInt > 0)
                     {
@@ -83,14 +95,16 @@ namespace DSUI
                     {
                         Console.WriteLine("Must be positive");
                     }
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-
-            }while(repeat);
+            } while (repeat);
             return enteredInt;
         }
+
         /// <summary>
         /// Makes sure user is inputting a valid string
         /// </summary>
@@ -100,22 +114,30 @@ namespace DSUI
         {
             string entererdString = "";
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     entererdString = Console.ReadLine();
-                    if (String.IsNullOrWhiteSpace(entererdString)){
+                    if (String.IsNullOrWhiteSpace(entererdString))
+                    {
                         Console.WriteLine("Please put in a valid string");
-                    }else{
+                    }
+                    else
+                    {
                         repeat = false;
                     }
-                } catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Something went wrong, try again");
                 }
-            }while(repeat);
+            } while (repeat);
             return entererdString;
         }
+
         /// <summary>
         /// Makes sure user is entering a valid name
         /// </summary>
@@ -125,24 +147,30 @@ namespace DSUI
         {
             string enteredString = "";
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     enteredString = Console.ReadLine();
-                    if(Regex.IsMatch(enteredString, @"^[a-zA-Z]{2,}\s[a-zA-Z]{1,}$")){
+                    if (Regex.IsMatch(enteredString, @"^[a-zA-Z]{2,}\s[a-zA-Z]{1,}$"))
+                    {
                         repeat = false;
                     }
                     else
                     {
                         Console.WriteLine("Incorrect Format, use Firstname Lastname");
                     }
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-            }while(repeat);
+            } while (repeat);
             return enteredString;
         }
+
         /// <summary>
         /// Method that makes sure user is entering in a valid phone number
         /// </summary>
@@ -153,11 +181,14 @@ namespace DSUI
             long phoneNumber = 0;
             string enteredString;
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     enteredString = Console.ReadLine();
-                    if(Regex.IsMatch(enteredString, @"^[0-9]{10}$")){
+                    if (Regex.IsMatch(enteredString, @"^[0-9]{10}$"))
+                    {
                         repeat = false;
                         phoneNumber = Int64.Parse(enteredString);
                     }
@@ -165,13 +196,16 @@ namespace DSUI
                     {
                         Console.WriteLine("Incorrect Format, use 1234567890");
                     }
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-            }while(repeat);
+            } while (repeat);
             return phoneNumber;
         }
+
         /// <summary>
         /// makes sure user is entering in a valid character either m or f for gender
         /// </summary>
@@ -182,11 +216,14 @@ namespace DSUI
             char gender = 'm';
             string enteredString;
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     enteredString = Console.ReadLine();
-                    if((enteredString.ToCharArray()[0] == 'm')||(enteredString.ToCharArray()[0] == 'f')){
+                    if ((enteredString.ToCharArray()[0] == 'm') || (enteredString.ToCharArray()[0] == 'f'))
+                    {
                         repeat = false;
                         gender = enteredString.ToCharArray()[0];
                     }
@@ -194,13 +231,16 @@ namespace DSUI
                     {
                         Console.WriteLine("Please enter either m or f");
                     }
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-            }while(repeat);
+            } while (repeat);
             return gender;
         }
+
         /// <summary>
         /// Allows user to choose which query they want to preform on the order histories
         /// </summary>
@@ -210,22 +250,25 @@ namespace DSUI
         {
             int enteredInt = 0;
             bool repeat = true;
-            do{
+            do
+            {
                 Console.WriteLine(message);
-                try{
+                try
+                {
                     Console.WriteLine("[1] to sort by Date (Oldest to Newest)");
                     Console.WriteLine("[2] to sort by Date (Newest to Oldest)");
                     Console.WriteLine("[3] to sort by Cost (Least to Most Expensive)");
                     Console.WriteLine("[4] to sort by Cost (Most to Least Expensive)");
                     enteredInt = Int32.Parse(Console.ReadLine());
-                    if(enteredInt==1||enteredInt==2||enteredInt==3||enteredInt==4) repeat = false;
+                    if (enteredInt == 1 || enteredInt == 2 || enteredInt == 3 || enteredInt == 4) repeat = false;
                     else Console.WriteLine("Not a valid number, try again");
-                }catch(Exception e){
+                }
+                catch (Exception e)
+                {
                     Log.Debug(e.Message);
                     Console.WriteLine("Not a valid input, please try again");
                 }
-
-            }while(repeat);
+            } while (repeat);
             return enteredInt;
         }
     }
