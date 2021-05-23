@@ -18,7 +18,7 @@ namespace DSDL
 
         private FannerDogsDBContext _context;
 
-        public Repo(Entity.FannerDogsDBContext context)
+        public Repo(FannerDogsDBContext context)
         {
             _context = context;
             Log.Debug("Created an instance of the repository");
@@ -34,19 +34,19 @@ namespace DSDL
         {
             try
             {
-                StoreLocation StoreLocation = new StoreLocation();
-                StoreLocation.Location = store.Location;
-                StoreLocation.Address = store.Address;
+                StoreLocation storeLo = new StoreLocation();
+                storeLo.Location = store.Location;
+                storeLo.Address = store.Address;
                 _context.StoreLocations.Add(
-                    StoreLocation
+                    storeLo
                 );
                 ManagesStore managesStore = new ManagesStore();
 
                 _context.SaveChanges();
                 StoreLocation dS = (
-                                        from storeLoc in _context.storeLocs
+                                        from storeLoc in _context.StoreLocations
                                         where
-    storeLoc.StoreAddress == storeLoc.StoreAddress && storeLoc.StoreName == storeLoc.StoreName
+                                        storeLoc.Address == storeLoc.Address && storeLoc.Location == storeLoc.Location
                                         select storeLoc
                                         ).Single();
                 managesStore.DogManagerId = dogManager.PhoneNumber;
@@ -56,7 +56,7 @@ namespace DSDL
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message + "error encountered in AddStoreLocation, this shouldn't happen");
+                Log.Error(ex.Message + " error encountered in AddStoreLocation, this shouldn't happen");
             }
             return store;
         }
@@ -90,7 +90,7 @@ namespace DSDL
                 StoreLocation dS = (
                                         from storeLoc in _context.StoreLocations
                                         where
-                                        storeLoc.StoreAddress == address && storeLoc.StoreName == location
+                                        storeLoc.Address == address && storeLoc.Location == location
                                         select storeLoc
                                         ).Single();
                 List<Inventory> iList = (
@@ -105,7 +105,7 @@ namespace DSDL
                     Dog dog = (
                                         from dog1 in _context.Dogs
                                         where
-                                        dog1.ItemId == i.DogId
+                                        dog1.Id == i.DogId
                                         select dog1
                     ).Single();
                     Log.Information("Here's the item I'm about to create");
@@ -187,7 +187,7 @@ namespace DSDL
                 StoreLocation dS = (
                                         from storeLoc in _context.StoreLocations
                                         where
-    storeLoc.StoreAddress == store.Address && storeLoc.StoreName == store.Location
+                                        storeLoc.Address == store.Address && storeLoc.Location == store.Location
                                         select storeLoc
                                         ).Single();
                 Inventory inventory = new Inventory();
@@ -251,7 +251,7 @@ namespace DSDL
                 StoreLocation dS = (
                                         from storeLoc in _context.StoreLocations
                                         where
-                                        storeLoc.Address == store.Address && storeLoc.StoreName == store.Location
+                                        storeLoc.Address == store.Address && storeLoc.Location == store.Location
                                         select storeLoc
                                         ).Single();
                 Inventory inv = (
@@ -427,7 +427,7 @@ namespace DSDL
                             where
                                 dogOr.BuyerId == dogOrder.DogBuyer.PhoneNumber &&
                                 dogOr.StoreId == dogOrder.StoreLocation.Id &&
-                                dogOr.DateOrder == dogOrder.OrderDate &&
+                                dogOr.OrderDate == dogOrder.OrderDate &&
                                 dogOr.Total == dogOrder.Total
                             select dogOr
                 ).Single();
@@ -514,14 +514,14 @@ namespace DSDL
                 default:
                     return null;
             }
-            StoreLocation StoreLocation;
+            StoreLocation storeLocation;
             List<OrderItem> orderItems;
             List<DogOrder> returnOrders = new List<DogOrder>();
             DogOrder returnOrder;
             Dog dog;
             foreach (DogOrder dogOrder in dogOrders)
             {
-                StoreLocation = (
+                storeLocation = (
                             from storeLoc in _context.StoreLocations
                             where
                             storeLoc.Id == dogOrder.StoreId
@@ -536,11 +536,7 @@ namespace DSDL
                 returnOrder = new DogOrder(
                     dogBuyer,
                     dogOrder.Total,
-                    new StoreLocation(
-                        StoreLocation.Id,
-                        StoreLocation.Address,
-                        StoreLocation.Location
-                    )
+                    storeLocation
                 );
                 returnOrder.OrderDate = dogOrder.OrderDate;
                 foreach (OrderItem orderItem in orderItems)
@@ -548,15 +544,11 @@ namespace DSDL
                     dog = (
                             from dog1 in _context.Dogs
                             where
-                            dog1.ItemId == orderItem.DogId
+                            dog1.Id == orderItem.DogId
                             select dog1
                     ).Single();
-                    returnOrder.AddItemToOrder(new Model.OrderItem(
-                        new Model.Dog(
-                            dog.Breed,
-                            dog.Gender,
-                            dog.Price
-                        ),
+                    returnOrder.AddItemToOrder(new OrderItem(
+                        dog,
                         orderItem.Quantity
                     ));
                 }
@@ -647,15 +639,11 @@ namespace DSDL
                     dog = (
                             from dog1 in _context.Dogs
                             where
-                            dog1.ItemId == orderItem.DogId
+                            dog1.Id == orderItem.DogId
                             select dog1
                     ).Single();
                     returnOrder.AddItemToOrder(new OrderItem(
-                        new Dog(
-                            dog.Breed,
-                            dog.Gender,
-                            dog.Price
-                        ),
+                        dog,
                         orderItem.Quantity
                     ));
                 }
@@ -678,11 +666,7 @@ namespace DSDL
             foreach (DogBuyer dogBuyer in dogBuyers)
             {
                 returningDogBuyers.Add(
-                    new DogBuyer(
-                        dogBuyer.Name,
-                        dogBuyer.Address,
-                        dogBuyer.PhoneNumber
-                    )
+                    dogBuyer
                 );
             }
             return returningDogBuyers;
@@ -703,11 +687,7 @@ namespace DSDL
             foreach (DogManager dogManager in dogManagers)
             {
                 returningDogManagers.Add(
-                    new DogManager(
-                        dogManager.PhoneNumber,
-                        dogManager.Address,
-                        dogManager.Name
-                    )
+                    dogManager
                 );
             }
             return returningDogManagers;

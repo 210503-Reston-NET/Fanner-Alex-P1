@@ -1,7 +1,7 @@
 using DSDL;
 using DSModels;
 using System.Collections.Generic;
-using Entity = DSDL.Entities;
+
 
 namespace DSBL
 {
@@ -9,7 +9,7 @@ namespace DSBL
     {
         private Repo _repoDS;
 
-        public OrderBL(Entity.FannerDogsDBContext context)
+        public OrderBL(FannerDogsDBContext context)
         {
             _repoDS = new Repo(context);
         }

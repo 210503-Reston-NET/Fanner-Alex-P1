@@ -16,7 +16,7 @@ namespace DSUI
             .SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
             string connectionString = configuration.GetConnectionString("FannerDogsDB");
             DbContextOptions<FannerDogsDBContext> options = new DbContextOptionsBuilder<FannerDogsDBContext>()
-            .UseSqlServer(connectionString).Options;
+            .UseNpgsql(connectionString).Options;
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.File("logs/DogStore.txt", rollingInterval: RollingInterval.Day)
