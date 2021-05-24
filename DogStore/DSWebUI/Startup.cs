@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DSDL;
+using DSBL;
+using DSModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace DSWebUI
@@ -27,6 +29,13 @@ namespace DSWebUI
         {
             services.AddControllersWithViews();
             services.AddDbContext<FannerDogsDBContext>(options => options.UseNpgsql(parseElephantSQLURL(Configuration.GetConnectionString("FannerDogsDB"))));
+            services.AddScoped<IRepo, Repo>();
+            services.AddScoped<IBuyerBL, BuyerBL>();
+            services.AddScoped<IManagerBL, ManagerBL>();
+            services.AddScoped<IOrderBL, OrderBL>();
+            services.AddScoped<IStoreLocationBL, StoreLocationBL>();
+            services.AddScoped<Item, OrderItem>();
+            services.AddScoped<Item, Inventory>();
         }
         public static string parseElephantSQLURL(string uriString)
         {
