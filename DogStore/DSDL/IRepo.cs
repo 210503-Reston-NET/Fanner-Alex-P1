@@ -41,5 +41,7 @@ namespace DSDL
         List<DogManager> GetAllDogManagers();
 
         List<DogBuyer> FindBuyerByName(string name);
+
+        List<StoreLocation> GetManagerStores(long phonenumber);
     }
 }

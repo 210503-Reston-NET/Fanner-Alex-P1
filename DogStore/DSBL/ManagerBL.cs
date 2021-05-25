@@ -28,5 +28,10 @@ namespace DSBL
         {
             return _repoDS.GetAllDogManagers();
         }
+
+        public List<StoreLocation> GetManagerStores(long phone)
+        {
+            return _repoDS.GetManagerStores(phone);
+        }
     }
 }

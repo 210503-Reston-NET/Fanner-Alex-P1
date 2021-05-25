@@ -692,5 +692,23 @@ namespace DSDL
             }
             return returningDogManagers;
         }
+
+        public List<StoreLocation> GetManagerStores(long phonenumber)
+        {
+            try {
+                List<ManagesStore> manages = (
+                                                from mS in _context.ManagesStores
+                                                select mS
+                    ).ToList();
+                return (
+                            from sto in _context.StoreLocations
+                            join man in manages on  sto.Id equals man.StoreLocationId 
+                            select sto).ToList();
+            }
+            catch(Exception e)
+            {
+                return new List<StoreLocation>();
+            }
+        }
     }
 }

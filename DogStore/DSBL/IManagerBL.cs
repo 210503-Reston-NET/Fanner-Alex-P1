@@ -10,5 +10,6 @@ namespace DSBL
         DogManager AddManager(DogManager user);
 
         DogManager FindManager(long phone);
+        List<StoreLocation> GetManagerStores(long phone);
     }
 }
