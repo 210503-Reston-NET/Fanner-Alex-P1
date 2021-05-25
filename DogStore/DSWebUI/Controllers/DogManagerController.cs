@@ -38,11 +38,23 @@ namespace DSWebUI.Controllers
         // POST: DogManagerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(DogManagerVM dogManagerVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _managerBL.AddManager(new DSModels.DogManager
+                    {
+                        Name = dogManagerVM.Name,
+                        Address = dogManagerVM.Address,
+                        PhoneNumber = dogManagerVM.PhoneNumber
+                    }
+                        );
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else return View();
             }
             catch
             {
