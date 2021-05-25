@@ -6,50 +6,50 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSBL;
 using DSWebUI.Models;
+using DSModels;
 namespace DSWebUI.Controllers
 {
-    public class DogManagerController : Controller
+    public class DogBuyerController : Controller
     {
-        private IManagerBL _managerBL;
-        public DogManagerController(IManagerBL managerBL)
+        private IBuyerBL _buyerBL;
+        public DogBuyerController(IBuyerBL buyerBL)
         {
-            _managerBL = managerBL;
+            _buyerBL = buyerBL;
         }
-        // GET: DogManagerController
+        // GET: DogBuyerController
         public ActionResult Index()
         {
-            return View(_managerBL.GetAllManagers()
-                        .Select(manager => new DogManagerVM(manager)).ToList());
-                    
+            return View(_buyerBL.GetAllBuyers()
+                        .Select(buyer => new DogBuyerVM(buyer)).ToList());
         }
 
-        // GET: DogManagerController/Details/5
+        // GET: DogBuyerController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: DogManagerController/Create
+        // GET: DogBuyerController/Create
         public ActionResult Create()
         {
             return View();
+            
         }
 
-        // POST: DogManagerController/Create
+        // POST: DogBuyerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DogManagerVM dogManagerVM)
+        public ActionResult Create(DogBuyerVM dogBuyerVM)
         {
-            Global.userId = dogManagerVM.PhoneNumber;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _managerBL.AddManager(new DSModels.DogManager
+                    _buyerBL.AddBuyer(new DSModels.DogBuyer
                     {
-                        Name = dogManagerVM.Name,
-                        Address = dogManagerVM.Address,
-                        PhoneNumber = dogManagerVM.PhoneNumber
+                        Name = dogBuyerVM.Name,
+                        Address = dogBuyerVM.Address,
+                        PhoneNumber = dogBuyerVM.PhoneNumber
                     }
                         );
 
@@ -63,13 +63,13 @@ namespace DSWebUI.Controllers
             }
         }
 
-        // GET: DogManagerController/Edit/5
+        // GET: DogBuyerController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: DogManagerController/Edit/5
+        // POST: DogBuyerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -84,13 +84,13 @@ namespace DSWebUI.Controllers
             }
         }
 
-        // GET: DogManagerController/Delete/5
+        // GET: DogBuyerController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: DogManagerController/Delete/5
+        // POST: DogBuyerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

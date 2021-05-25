@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+
+WORKDIR /app
+
+COPY *.sln ./
+COPY DSBL/*.csproj DSBL/
+COPY DSDL/*.csproj DSDL/
+COPY DSModels/*.csproj DSModels/
+COPY DSTests/*.csproj DSTests/
+COPY DSWebUI/*.csproj DSWebUI/
+
+RUN cd DSWebUI && dotnet restore
+
+COPY . ./
+RUN dotnet publish DSWebUI -c Release -o publish --no-restore
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 as runtime
+WORKDIR /app
+COPY --from=build /app/publish ./
+CMD ["dotnet", "DSWebUI.dll"]
+# CMD /bin/bash

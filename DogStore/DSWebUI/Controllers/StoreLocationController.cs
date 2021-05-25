@@ -5,52 +5,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DSBL;
+using DSModels;
 using DSWebUI.Models;
 namespace DSWebUI.Controllers
 {
-    public class DogManagerController : Controller
+    public class StoreLocationController : Controller
     {
+        private IStoreLocationBL _storeLocationBL;
         private IManagerBL _managerBL;
-        public DogManagerController(IManagerBL managerBL)
+        public StoreLocationController(IStoreLocationBL storeLocationBL, IManagerBL managerBL)
         {
+            _storeLocationBL = storeLocationBL;
             _managerBL = managerBL;
         }
-        // GET: DogManagerController
+        // GET: StoreLocationController
         public ActionResult Index()
         {
-            return View(_managerBL.GetAllManagers()
-                        .Select(manager => new DogManagerVM(manager)).ToList());
-                    
+            return View(_storeLocationBL.GetAllStoreLocations()
+                        .Select(storeLoc => new StoreLocationVM(storeLoc)).ToList());
         }
 
-        // GET: DogManagerController/Details/5
+        // GET: StoreLocationController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: DogManagerController/Create
+        // GET: StoreLocationController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: DogManagerController/Create
+        // POST: StoreLocationController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DogManagerVM dogManagerVM)
+        public ActionResult Create(StoreLocationVM storeLocationVM)
         {
-            Global.userId = dogManagerVM.PhoneNumber;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _managerBL.AddManager(new DSModels.DogManager
+                    _storeLocationBL.AddStoreLocation(new DSModels.StoreLocation
                     {
-                        Name = dogManagerVM.Name,
-                        Address = dogManagerVM.Address,
-                        PhoneNumber = dogManagerVM.PhoneNumber
-                    }
+                        Address = storeLocationVM.Address,
+                        Location = storeLocationVM.Location
+                    }, _managerBL.FindManager(Global.userId)
                         );
 
                     return RedirectToAction(nameof(Index));
@@ -63,13 +63,13 @@ namespace DSWebUI.Controllers
             }
         }
 
-        // GET: DogManagerController/Edit/5
+        // GET: StoreLocationController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: DogManagerController/Edit/5
+        // POST: StoreLocationController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -84,13 +84,13 @@ namespace DSWebUI.Controllers
             }
         }
 
-        // GET: DogManagerController/Delete/5
+        // GET: StoreLocationController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: DogManagerController/Delete/5
+        // POST: StoreLocationController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
