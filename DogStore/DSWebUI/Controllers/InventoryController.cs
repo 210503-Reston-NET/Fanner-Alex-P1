@@ -22,9 +22,14 @@ namespace DSWebUI.Controllers
             StoreLocation sL = _storeLocationBL.GetStore(id);
             ViewBag.StoreLocation = _storeLocationBL.GetStore(id);
             List<InventoryVM> items = _storeLocationBL.GetStoreInventory(sL.Address, sL.Location)
-                        .Select(storeLoc => new InventoryVM(storeLoc)).ToList();
+                        .Select(ite => new InventoryVM(ite)).ToList();
             //TODO
-            return View();
+            foreach(InventoryVM item in items)
+            {
+                item.Store = sL;
+                item.StoreLocationId = id;
+            }
+            return View(items);
         }
 
         // GET: InventoryController/Details/5
@@ -34,19 +39,29 @@ namespace DSWebUI.Controllers
         }
 
         // GET: InventoryController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            InventoryVM invent = new InventoryVM();
+            invent.StoreLocationId = id;
+            return View(invent);
         }
 
         // POST: InventoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(InventoryVM inventoryVM)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                StoreLocation storeLocation = _storeLocationBL.GetStore(inventoryVM.StoreLocationId);
+                // if (ModelState.IsValid)
+                // {
+                Dog dog = new Dog(inventoryVM.Breed, inventoryVM.Gender, inventoryVM.Price);
+                _storeLocationBL.AddItem(storeLocation, dog, inventoryVM.Quantity);
+
+                return RedirectToAction(nameof(Index), new { id = inventoryVM.StoreLocationId });
+                // }
+                //else return View();
             }
             catch
             {

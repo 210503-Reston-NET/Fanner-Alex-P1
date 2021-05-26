@@ -5,7 +5,7 @@
 }
 
 <h1>@ViewBag.DogManager.Name</h1>
-<h1>@ViewBag.DogManager.PhoneNumber</h1>
+
 <p>
     @Html.ActionLink("Add a New Store", "Create", new { id = ViewBag.DogManager.PhoneNumber })
 </p>
@@ -38,7 +38,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                <!--@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })-->
+                @Html.ActionLink("Items", "Index", "Inventory", new {id = item.Id}) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
