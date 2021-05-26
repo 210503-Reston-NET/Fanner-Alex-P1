@@ -37,20 +37,22 @@ namespace DSDL
                 StoreLocation storeLo = new StoreLocation();
                 storeLo.Location = store.Location;
                 storeLo.Address = store.Address;
+                var rand = new Random();
+                storeLo.Id = rand.Next();
                 _context.StoreLocations.Add(
                     storeLo
                 );
                 ManagesStore managesStore = new ManagesStore();
 
                 _context.SaveChanges();
-                StoreLocation dS = (
+               /* StoreLocation dS = (
                                         from storeLoc in _context.StoreLocations
                                         where
                                         storeLoc.Address == storeLoc.Address && storeLoc.Location == storeLoc.Location
                                         select storeLoc
-                                        ).Single();
+                                        ).Single();*/
                 managesStore.DogManagerId = dogManager.PhoneNumber;
-                managesStore.StoreLocationId = dS.Id;
+                managesStore.StoreLocationId = storeLo.Id;
                 _context.ManagesStores.Add(managesStore);
                 _context.SaveChanges();
             }

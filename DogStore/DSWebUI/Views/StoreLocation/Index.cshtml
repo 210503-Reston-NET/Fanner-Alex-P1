@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>@ViewBag.DogManager.Name</h1>
+<h1>@ViewBag.DogManager.PhoneNumber</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Add a New Store", "Create", new { id = ViewBag.DogManager.PhoneNumber })
 </p>
 <table class="table">
     <thead>

@@ -10,7 +10,7 @@ namespace DSWebUI.Models
     {
         public StoreLocationVM(long id)
         {
-            this.CurrentManager = id;
+            CurrentManager = id;
         }
         public StoreLocationVM() { }
         public StoreLocationVM(StoreLocation sl)
@@ -20,13 +20,15 @@ namespace DSWebUI.Models
             Location = sl.Location;
         }
         public int Id { get; set; }
+
+      
         public long CurrentManager { get; set; }
         /// <summary>
         /// String representing the address of the store.
         /// </summary>
         /// <value></value>
         [Display(Name = "Address")]
-        [Required]
+        
         [RegularExpression(@"^[\w\s]+,\s\w{2}$", ErrorMessage = "Please use the Format: City Name, ST")]
         public string Address { get; set; }
 

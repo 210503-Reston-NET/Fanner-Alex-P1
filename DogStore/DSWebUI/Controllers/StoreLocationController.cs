@@ -22,12 +22,17 @@ namespace DSWebUI.Controllers
         public ActionResult Index(long id)
         {
             ViewBag.DogManager = _managerBL.FindManager(id);
-            return View(_managerBL.GetManagerStores(id)
-                        .Select(storeLoc => new StoreLocationVM(storeLoc)).ToList());
+            List<StoreLocationVM> storeLocations = _managerBL.GetManagerStores(id)
+                        .Select(storeLoc => new StoreLocationVM(storeLoc)).ToList();
+            /*foreach(StoreLocationVM sVM in storeLocations)
+            {
+                sVM.CurrentManager = id;
+            }*/
+            return View(storeLocations);
         }
 
         // GET: StoreLocationController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
             return View();
         }
@@ -35,7 +40,11 @@ namespace DSWebUI.Controllers
         // GET: StoreLocationController/Create
         public ActionResult Create(long id)
         {
-            return View(new StoreLocationVM(id));
+            StoreLocationVM store = new StoreLocationVM();
+            store.CurrentManager = id;
+            ViewBag.DogManager = _managerBL.FindManager(id);
+
+            return View(store);
         }
 
         // POST: StoreLocationController/Create
@@ -45,8 +54,10 @@ namespace DSWebUI.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                long test = storeLocationVM.CurrentManager;
+                int i = 1;
+               // if (ModelState.IsValid)
+               // {
                     _storeLocationBL.AddStoreLocation(new DSModels.StoreLocation
                     {
                         Address = storeLocationVM.Address,
@@ -54,9 +65,9 @@ namespace DSWebUI.Controllers
                     }, _managerBL.FindManager(storeLocationVM.CurrentManager)
                         );
 
-                    return RedirectToAction(nameof(Index));
-                }
-                else return View();
+                    return RedirectToAction(nameof(Index), new { id = storeLocationVM.CurrentManager});
+               // }
+                //else return View();
             }
             catch
             {
