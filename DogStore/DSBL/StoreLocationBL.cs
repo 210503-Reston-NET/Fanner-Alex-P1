@@ -84,5 +84,10 @@ namespace DSBL
         {
             return _repoDS.AddItem(store, dog, quant);
         }
+
+        public StoreLocation GetStore(int Id)
+        {
+            return _repoDS.FindStore(Id);
+        }
     }
 }

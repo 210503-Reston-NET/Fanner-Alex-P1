@@ -216,6 +216,12 @@ namespace DSDL
             //from StoreLocation in _context.StoreLocations where
         }
 
+        public Model.StoreLocation FindStore(int storeId)
+        {
+            //StoreLocation store = new StoreLocation(address, location);
+            return GetAllStoreLocations().First(stor => stor.Id == storeId);
+            //from StoreLocation in _context.StoreLocations where
+        }
         /// <summary>
         /// Finds a store you're looking for and removes it NOT IMPLEMENTED
         /// </summary>

@@ -21,5 +21,6 @@ namespace DSBL
         Item UpdateItem(StoreLocation store, Dog dog, int quant);
 
         Item AddItem(StoreLocation store, Dog dog, int quant);
+        StoreLocation GetStore(int Id);
     }
 }

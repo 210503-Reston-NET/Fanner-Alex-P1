@@ -1,61 +1,52 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DSBL;
+using DSModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DSBL;
 using DSWebUI.Models;
 namespace DSWebUI.Controllers
 {
-    public class DogManagerController : Controller
+    public class InventoryController : Controller
     {
-        private IManagerBL _managerBL;
-        public DogManagerController(IManagerBL managerBL)
+        private IStoreLocationBL _storeLocationBL;
+        public InventoryController(IStoreLocationBL storeLocationBL)
         {
-            _managerBL = managerBL;
+            _storeLocationBL = storeLocationBL;
         }
-        // GET: DogManagerController
-        public ActionResult Index()
+        // GET: InventoryController
+        public ActionResult Index(int id)
         {
-            return View(_managerBL.GetAllManagers()
-                        .Select(manager => new DogManagerVM(manager)).ToList());
-                    
+            StoreLocation sL = _storeLocationBL.GetStore(id);
+            ViewBag.StoreLocation = _storeLocationBL.GetStore(id);
+            List<InventoryVM> items = _storeLocationBL.GetStoreInventory(sL.Address, sL.Location)
+                        .Select(storeLoc => new InventoryVM(storeLoc)).ToList();
+            //TODO
+            return View();
         }
 
-        // GET: DogManagerController/Details/5
+        // GET: InventoryController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: DogManagerController/Create
+        // GET: InventoryController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: DogManagerController/Create
+        // POST: InventoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DogManagerVM dogManagerVM)
+        public ActionResult Create(IFormCollection collection)
         {
-            
             try
             {
-                if (ModelState.IsValid)
-                {
-                    _managerBL.AddManager(new DSModels.DogManager
-                    {
-                        Name = dogManagerVM.Name,
-                        Address = dogManagerVM.Address,
-                        PhoneNumber = dogManagerVM.PhoneNumber
-                    }
-                        );
-
-                    return RedirectToAction(nameof(Index));
-                }
-                else return View();
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -63,13 +54,13 @@ namespace DSWebUI.Controllers
             }
         }
 
-        // GET: DogManagerController/Edit/5
+        // GET: InventoryController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: DogManagerController/Edit/5
+        // POST: InventoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -84,13 +75,13 @@ namespace DSWebUI.Controllers
             }
         }
 
-        // GET: DogManagerController/Delete/5
+        // GET: InventoryController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: DogManagerController/Delete/5
+        // POST: InventoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
