@@ -698,12 +698,25 @@ namespace DSDL
             try {
                 List<ManagesStore> manages = (
                                                 from mS in _context.ManagesStores
+                                                where mS.DogManagerId == phonenumber
                                                 select mS
                     ).ToList();
-                return (
-                            from sto in _context.StoreLocations
-                            join man in manages on  sto.Id equals man.StoreLocationId 
-                            select sto).ToList();
+                
+                
+
+                List<StoreLocation> stores = (
+                                                from sL in _context.StoreLocations
+                                                select sL
+                ).ToList();
+                List<StoreLocation> returnStores = new List<StoreLocation>();
+                foreach (StoreLocation s in stores)
+                {
+                    foreach(ManagesStore m in manages)
+                    {
+                        if (m.StoreLocationId == s.Id) returnStores.Add(s);
+                    }
+                }
+                return returnStores;
             }
             catch(Exception e)
             {

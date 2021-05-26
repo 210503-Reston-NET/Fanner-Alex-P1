@@ -38,7 +38,8 @@
             </td>
             <td>
                 @Html.ActionLink("Check", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                <!--@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })-->
+                @Html.ActionLink("Stores", "Index", "StoreLocation", new {id = item.PhoneNumber})|
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>

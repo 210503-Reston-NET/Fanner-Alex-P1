@@ -8,6 +8,10 @@ namespace DSWebUI.Models
 {
     public class StoreLocationVM
     {
+        public StoreLocationVM(long id)
+        {
+            this.CurrentManager = id;
+        }
         public StoreLocationVM() { }
         public StoreLocationVM(StoreLocation sl)
         {
@@ -16,7 +20,7 @@ namespace DSWebUI.Models
             Location = sl.Location;
         }
         public int Id { get; set; }
-
+        public long CurrentManager { get; set; }
         /// <summary>
         /// String representing the address of the store.
         /// </summary>

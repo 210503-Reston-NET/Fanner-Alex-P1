@@ -19,9 +19,10 @@ namespace DSWebUI.Controllers
             _managerBL = managerBL;
         }
         // GET: StoreLocationController
-        public ActionResult Index()
+        public ActionResult Index(long id)
         {
-            return View(_storeLocationBL.GetAllStoreLocations()
+            ViewBag.DogManager = _managerBL.FindManager(id);
+            return View(_managerBL.GetManagerStores(id)
                         .Select(storeLoc => new StoreLocationVM(storeLoc)).ToList());
         }
 
@@ -32,9 +33,9 @@ namespace DSWebUI.Controllers
         }
 
         // GET: StoreLocationController/Create
-        public ActionResult Create()
+        public ActionResult Create(long id)
         {
-            return View();
+            return View(new StoreLocationVM(id));
         }
 
         // POST: StoreLocationController/Create
@@ -50,7 +51,7 @@ namespace DSWebUI.Controllers
                     {
                         Address = storeLocationVM.Address,
                         Location = storeLocationVM.Location
-                    }, _managerBL.FindManager(Global.userId)
+                    }, _managerBL.FindManager(storeLocationVM.CurrentManager)
                         );
 
                     return RedirectToAction(nameof(Index));
