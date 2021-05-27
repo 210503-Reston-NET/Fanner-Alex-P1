@@ -14,6 +14,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloudDS'
+    organization: '210503-reston-net'
+    scannerMode: 'MSBuild'
+    projectKey: '210503-Reston-NET_Fanner-Alex-P1'
+    projectName: 'Fanner-Alex-P1'
 #restore build and test DogStore
 - task: DotNetCoreCLI@2
   displayName: Restore project deps
@@ -31,6 +38,10 @@ steps:
   inputs:
     command: 'test'
     projects: '**/DogStore/DSTests/*.csproj'
+- task: SonarCloudAnalyze@1
+  displayName: Run Code Analysis
+- task: SonarCloudPublish@1
+  displayName: Publish Code Analysis
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
