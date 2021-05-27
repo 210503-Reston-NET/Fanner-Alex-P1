@@ -6,13 +6,12 @@
 trigger:
 - main
 
-pool:
-  default
+pool: Default
 
 variables:
-  solution:'**/DogStore/*.sln'
-  buildPlatform:'Any CPU'
-  buildConfiguration:'Release'
+  solution: '**/DogStore/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 
 steps:
 #restore build and test DogStore
