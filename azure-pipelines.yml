@@ -32,8 +32,8 @@ steps:
     command: 'test'
     projects: '**/DogStore/DSTests/*.csproj'
 - task: DotNetCoreCLI@2
-    displayName: Publish
-    inputs:
+  displayName: Publish
+  inputs:
       command: 'publish'
       publishWebProjects: true
       zipAfterPublish: true
