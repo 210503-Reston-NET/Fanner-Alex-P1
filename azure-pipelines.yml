@@ -11,8 +11,8 @@ pool:
 
 variables:
   solution:'**/DogStore/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  buildPlatform:'Any CPU'
+  buildConfiguration:'Release'
 
 steps:
 #restore build and test DogStore
