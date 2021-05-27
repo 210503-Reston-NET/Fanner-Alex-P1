@@ -33,7 +33,6 @@ steps:
   inputs:
     command: 'build'
     projects: $(solution)
-    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
@@ -43,6 +42,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/DogStore/DSTests/*.csproj'
+    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
 - task: SonarCloudAnalyze@1
   displayName: Run Code Analysis
 - task: SonarCloudPublish@1
