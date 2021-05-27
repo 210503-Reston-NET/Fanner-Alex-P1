@@ -9,10 +9,29 @@ trigger:
 pool:
   default
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+  solution:'**/DogStore/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 
+steps:
+#restore build and test DogStore
+- task: DotNetCoreCLI@2
+  displayName: Restore project deps
+  inputs:
+    command: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: 'build'
+    projects: '$(solution)'
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: 'test'
+    projects: '**/DogStore/DSTests/*.csproj'
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
