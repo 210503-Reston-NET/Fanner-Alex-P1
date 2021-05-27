@@ -34,10 +34,10 @@ steps:
 - task: DotNetCoreCLI@2
     displayName: Publish
     inputs:
-       command: 'publish'
-       publishWebProjects: true
-       zipAfterPublish: true
-       projects: '**/DogStore/DSWebUI/*.csproj'
+      command: 'publish'
+      publishWebProjects: true
+      zipAfterPublish: true
+      projects: '**/DogStore/DSWebUI/*.csproj'
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
