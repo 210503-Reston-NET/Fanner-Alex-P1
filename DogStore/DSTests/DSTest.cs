@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using DSDL;
 using Model = DSModels;
-using Entity = DSDL.Entities;
+
 using System.Linq;
 namespace DSTests
 {
     public class DSTest
     {
-        private readonly DbContextOptions<Entity.FannerDogsDBContext> options;
+        private readonly DbContextOptions<FannerDogsDBContext> options;
         public DSTest()
         {
-            options = new DbContextOptionsBuilder<Entity.FannerDogsDBContext>().UseSqlite("Filename=Test.db").Options;
+            options = new DbContextOptionsBuilder<FannerDogsDBContext>().UseSqlite("Filename=Test.db").Options;
             Seed();
         }
         [Fact]
@@ -23,7 +23,7 @@ namespace DSTests
         /// </summary>
         public void AddManagerAddsManager()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(1234567890,"Test, TX","Texas Toaster");
@@ -41,7 +41,7 @@ namespace DSTests
         /// </summary>
         public void AddStoreLocationAddsStore()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(1234567890,"Test, TX","Texas Toaster");
@@ -65,7 +65,7 @@ namespace DSTests
         /// </summary>
         public void AddBuyerAddsBuyer()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogBuyer dogBuyer= new Model.DogBuyer("Texas Toaster","Test, TX",1234567890);
@@ -83,7 +83,7 @@ namespace DSTests
         /// </summary>
         public void GetAllManagersGetsManagers()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(9638527410,"Wired, Wyoming","Ama Test");
@@ -107,7 +107,7 @@ namespace DSTests
         /// </summary>
         public void GetAllBuyersGetsBuyers()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogBuyer dogBuyer = new Model.DogBuyer("Ama Test","Wired, Wyoming",9638527410);
@@ -131,7 +131,7 @@ namespace DSTests
         /// Checks AddItem and FindItem
         /// </summary>
         public void AddItemShouldBeFound(){
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(1234567890,"Test, TX","Texas Toaster");
@@ -166,7 +166,7 @@ namespace DSTests
         /// Makes sure store inventory is being updated
         /// </summary>
         public void AddItemShouldBeInStoreInventory(){
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(1234567890,"Test, TX","Texas Toaster");
@@ -199,7 +199,7 @@ namespace DSTests
         /// Checks FindItem to make sure it returns null correctly if Item quantity is too high
         /// </summary>
         public void WrongItemShouldNotBeFound(){
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(1234567890,"Test, TX","Texas Toaster");
@@ -234,7 +234,7 @@ namespace DSTests
         /// </summary>
         public void WrongBuyerShouldNotBeFound()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogBuyer dogBuyer= new Model.DogBuyer("Texas Toaster","Test, TX",1234567890);
@@ -254,7 +254,7 @@ namespace DSTests
         /// </summary>
         public void WrongManagerShouldNotBeFound()
         {
-            using (var context = new Entity.FannerDogsDBContext(options))
+            using (var context = new FannerDogsDBContext(options))
             {
                 IRepo _repoDS = new Repo(context);
                 Model.DogManager dogManager= new Model.DogManager(1234567890,"Test, TX","Texas Toaster");
@@ -269,7 +269,7 @@ namespace DSTests
             }
         }
         private void Seed(){
-            using(var context = new Entity.FannerDogsDBContext(options)){
+            using(var context = new FannerDogsDBContext(options)){
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
                 
