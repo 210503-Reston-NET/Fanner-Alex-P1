@@ -89,5 +89,10 @@ namespace DSBL
         {
             return _repoDS.FindStore(Id);
         }
+
+        public Dog GetDog(int Id)
+        {
+            return _repoDS.FindDog(Id);
+        }
     }
 }

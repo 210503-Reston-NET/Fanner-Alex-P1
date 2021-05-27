@@ -21,15 +21,21 @@ namespace DSWebUI.Controllers
         {
             StoreLocation sL = _storeLocationBL.GetStore(id);
             ViewBag.StoreLocation = _storeLocationBL.GetStore(id);
-            List<InventoryVM> items = _storeLocationBL.GetStoreInventory(sL.Address, sL.Location)
-                        .Select(ite => new InventoryVM(ite)).ToList();
+            List<Item> items = _storeLocationBL.GetStoreInventory(sL.Address, sL.Location);
             //TODO
-            foreach(InventoryVM item in items)
+            List<InventoryVM> invs = new List<InventoryVM>();
+            Dog itemDog;
+            InventoryVM inv;
+            foreach(Item item in items)
             {
-                item.Store = sL;
-                item.StoreLocationId = id;
+                inv = new InventoryVM(item);
+                itemDog = _storeLocationBL.GetDog(item.DogId);
+                inv.Breed = itemDog.Breed;
+                inv.Gender = itemDog.Gender;
+                inv.Price = itemDog.Price;
+                invs.Add(inv);
             }
-            return View(items);
+            return View(invs);
         }
 
         // GET: InventoryController/Details/5

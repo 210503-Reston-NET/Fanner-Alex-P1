@@ -114,7 +114,7 @@ namespace DSDL
                     Log.Information(dog.Breed);
                     Log.Information(dog.Gender.ToString());
                     Log.Information(dog.Price.ToString());
-                    itemList.Add(new Model.Inventory(new Model.Dog(dog.Breed, dog.Gender, dog.Price), i.Quantity));
+                    itemList.Add(new Model.Inventory(new Model.Dog(dog.Breed, dog.Gender, dog.Price), i.Quantity) { DogId = dog.Id});
                 }
                 return itemList;
             }
@@ -730,6 +730,13 @@ namespace DSDL
             {
                 return new List<StoreLocation>();
             }
+        }
+
+        public Dog FindDog(int dogId)
+        {
+            return (from d in _context.Dogs
+                    where d.Id == dogId
+                    select d).Single();
         }
     }
 }

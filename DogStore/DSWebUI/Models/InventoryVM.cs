@@ -16,13 +16,11 @@ namespace DSWebUI.Models
         }
         public InventoryVM(Inventory inv)
         {
-            DogId = inv.Dog.Id;
+            DogId = inv.DogId;
             Quantity = inv.Quantity;
             StoreLocationId = inv.StoreId;
             Store = inv.Store;
-            Breed = inv.Dog.Breed;
-            Gender = inv.Dog.Gender;
-            Price = inv.Dog.Price;
+            
         }
         public int DogId { get; set; }
         [Required]
