@@ -33,11 +33,16 @@ steps:
   inputs:
     command: 'build'
     projects: $(solution)
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '**/cobertura/coverage.xml'
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: 'test'
     projects: '**/DogStore/DSTests/*.csproj'
+    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
 - task: SonarCloudAnalyze@1
   displayName: Run Code Analysis
 - task: SonarCloudPublish@1
