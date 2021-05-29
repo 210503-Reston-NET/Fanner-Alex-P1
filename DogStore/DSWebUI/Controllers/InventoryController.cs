@@ -37,7 +37,7 @@ namespace DSWebUI.Controllers
             }
             return View(invs);
         }
-
+       
         // GET: InventoryController/Details/5
         public ActionResult Details(int id)
         {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DSWebUI.Models.OrderStartVM>
+﻿@model List<DSWebUI.Models.OrderStartVM>
 
 @{
     ViewData["Title"] = "Create";
@@ -10,10 +10,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form method="post" id="inputform">
             <div class="form-group">
 
-                <select>
+                <select  name="BuyerSel" form="inputform" id="BuyerStart">
                     @{
                         foreach (var item in Model)
                         {
@@ -28,10 +28,11 @@
                         }
                     }
                 </select>
+          
             </div>
             <div class="form-group">
 
-                <select>
+                <select id="StoreStart" name="StoreSel">
                     @{
                         foreach (var item in Model)
                         {
@@ -46,6 +47,9 @@
                         }
                     }
                 </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

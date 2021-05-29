@@ -65,9 +65,9 @@ namespace DSBL
         /// <param name="address">Address of the store to be removed.</param>
         /// <param name="location">Location name of the store to be removed.</param>
         /// <returns> StoreLocation that was removed</returns>
-        public StoreLocation RemoveStore(string address, string location)
+        public StoreLocation RemoveStore(int id)
         {
-            return _repoDS.RemoveStore(address, location);
+            return _repoDS.RemoveStore(id);
         }
 
         public Item FindItem(StoreLocation store, Dog dog, int quant)

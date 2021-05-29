@@ -63,10 +63,15 @@ namespace DSWebUI.Controllers
         // POST: OrderStartController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(IEnumerable<DSWebUI.Models.OrderStartVM>
+ collection)
         {
             try
             {
+                //OrderStartVM o = collection.Last();
+                //var z = o.BuyerId;
+                var x = Request.Form["BuyerStart"];
+                var y = Request.Form["StoreStart"];
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -14,7 +14,7 @@ namespace DSBL
 
         StoreLocation GetStore(string address, string location);
 
-        StoreLocation RemoveStore(string address, string location);
+        StoreLocation RemoveStore(int id);
 
         Item FindItem(StoreLocation store, Dog dog, int quant);
 

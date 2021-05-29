@@ -18,8 +18,10 @@ namespace DSWebUI.Models
 
         public string BuyerAddress { get; set; }
         public long BuyerPhoneNumber { get; set; }
-     
+
         public string StoreAddress { get; set; }
+        public List<StoreLocation> StoreLocations{ get;set;}
+        public List<DogBuyer> DogBuyers { get; set; }
 
         /// <summary>
         /// String representing the location of the store.

@@ -228,12 +228,12 @@ namespace DSDL
         /// <param name="address"> Address of the store you want to remove.</param>
         /// <param name="location"> Name of the store you want to remove.</param>
         /// <returns> Store which was removed from memory.</returns>
-        public Model.StoreLocation RemoveStore(string address, string location)
+        public Model.StoreLocation RemoveStore(int id)
         {
-            List<StoreLocation> storesFromFile = GetAllStoreLocations();
-            StoreLocation store = FindStore(address, location);
-            _stores.Remove(store);
-            return store;
+            StoreLocation storeDel = _context.StoreLocations.First(sto => sto.Id == id);
+            _context.StoreLocations.Remove(storeDel);
+            _context.SaveChanges();
+            return storeDel;
         }
 
         /// <summary>

@@ -30,7 +30,12 @@ namespace DSWebUI.Controllers
             }*/
             return View(storeLocations);
         }
-
+        public ActionResult CustomerIndex()
+        {
+            List<StoreLocationVM> stores = _storeLocationBL.GetAllStoreLocations()
+                                            .Select(storeLoc => new StoreLocationVM(storeLoc)).ToList();
+            return View(stores);
+        }
         // GET: StoreLocationController/Details/5
         public ActionResult Details(long id)
         {
@@ -97,9 +102,11 @@ namespace DSWebUI.Controllers
         }
 
         // GET: StoreLocationController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, long num)
         {
-            return View();
+            
+            _storeLocationBL.RemoveStore(id);
+            return RedirectToAction(nameof(Index), new { id = num});
         }
 
         // POST: StoreLocationController/Delete/5
