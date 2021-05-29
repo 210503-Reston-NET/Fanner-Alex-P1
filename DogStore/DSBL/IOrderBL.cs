@@ -5,6 +5,8 @@ namespace DSBL
 {
     public interface IOrderBL
     {
+        List<OrderItem> GetOrderItems(int id);
+        DogOrder UpdateOrder(int id);
         DogOrder AddOrder(DogOrder dogOrder);
 
         List<DogOrder> FindUserOrders(long phoneNumber, int option);

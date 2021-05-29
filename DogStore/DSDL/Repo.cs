@@ -439,7 +439,7 @@ namespace DSDL
                                 dogOr.Total == dogOrder.Total
                             select dogOr
                 ).Single();
-                foreach (Model.Item item in dogOrder.GetItems())
+                /*foreach (Model.Item item in dogOrder.GetItems())
                 {
                     Inventory inv = (
                                             from inv1 in _context.Inventories
@@ -455,14 +455,14 @@ namespace DSDL
                     orderItem.Quantity = item.Quantity;
                     _context.OrderItems.Add(orderItem);
                     _context.SaveChanges();
-                }
-                return dogOrder;
+                }*/
+                return dogOrd;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Something went wrong :(");
                 Log.Error(e.Message);
-                return null;
+                return dogOrder;
             }
         }
 
@@ -737,6 +737,36 @@ namespace DSDL
             return (from d in _context.Dogs
                     where d.Id == dogId
                     select d).Single();
+        }
+
+        public List<OrderItem> GetOrderItems(int id)
+        {
+            try
+            {
+                return (from dO in _context.OrderItems
+                        where dO.OrderId == id
+                        select dO).ToList();
+            }catch(Exception e)
+            {
+                return new List<OrderItem>();
+            }
+        }
+
+        public DogOrder UpdateOrder(int id)
+        {
+            try
+            {
+                DogOrder dogOrder = (from dO in _context.DogOrders
+                                     where dO.Id == id
+                                     select dO).Single();
+                _context.DogOrders.Update(dogOrder);
+                _context.SaveChanges();
+                return dogOrder;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

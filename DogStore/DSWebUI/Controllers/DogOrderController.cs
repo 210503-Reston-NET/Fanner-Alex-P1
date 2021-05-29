@@ -22,9 +22,21 @@ namespace DSWebUI.Controllers
             _orderBL = orderBL;
         }
         // GET: DogOrderController
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            List<OrderItem> orderItems = _orderBL.GetOrderItems(id);
+            List<OrderItemVM> orderItemVMs = new List<OrderItemVM>();
+            foreach(OrderItem o in orderItems)
+            {
+                OrderItemVM orderItemVM = new OrderItemVM();
+                Dog dog = _storeLocationBL.GetDog(o.DogId);
+                orderItemVM.DogId = dog.Id;
+                orderItemVM.Breed = dog.Breed;
+                orderItemVM.Gender = dog.Gender;
+                orderItemVM.Quantity = o.Quantity;
+                orderItemVMs.Add(orderItemVM);
+            }
+            return View(orderItemVMs);
         }
 
         // GET: DogOrderController/Details/5
@@ -55,11 +67,16 @@ namespace DSWebUI.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                DogBuyer dogBuyer = _buyerBL.FindUser(dogOrderVM.BuyerId);
+                StoreLocation storeLoc = _storeLocationBL.GetStore(dogOrderVM.StoreId);
+
+                DogOrder dogOrder = new DogOrder(dogBuyer, 0, storeLoc);
+                dogOrder = _orderBL.AddOrder(dogOrder);
+                return RedirectToAction(nameof(Index), new { id = dogOrder.Id});
             }
             catch
             {
-                return View();
+                return View(dogOrderVM.StoreId);
             }
         }
 

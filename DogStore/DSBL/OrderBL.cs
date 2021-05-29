@@ -28,5 +28,12 @@ namespace DSBL
         {
             return _repoDS.FindUserOrders(phoneNumber, option);
         }
+        public List<OrderItem> GetOrderItems(int id) {
+            return _repoDS.GetOrderItems(id);
+        }
+        public DogOrder UpdateOrder(int id)
+        {
+            return _repoDS.UpdateOrder(id);
+        }
     }
 }

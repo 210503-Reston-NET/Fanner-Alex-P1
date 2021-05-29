@@ -45,5 +45,7 @@ namespace DSDL
         List<StoreLocation> GetManagerStores(long phonenumber);
         StoreLocation FindStore(int storeId);
         Dog FindDog(int dogId);
+        List<OrderItem> GetOrderItems(int id);
+        DogOrder UpdateOrder(int id);
     }
 }
