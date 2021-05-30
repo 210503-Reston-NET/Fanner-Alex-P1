@@ -24,6 +24,7 @@ namespace DSWebUI.Controllers
         // GET: DogOrderController
         public ActionResult Index(int id)
         {
+            ViewBag.OrderId = id;
             List<OrderItem> orderItems = _orderBL.GetOrderItems(id);
             List<OrderItemVM> orderItemVMs = new List<OrderItemVM>();
             foreach(OrderItem o in orderItems)
@@ -60,6 +61,24 @@ namespace DSWebUI.Controllers
             return View(dogOrderVM);
         }
 
+        public ActionResult CreateOrderItem(int id)
+        {
+            DogOrder order = _orderBL.GetOrder(id);
+            StoreLocation storeLocation = _storeLocationBL.GetStore(order.StoreId);
+            List<Item> items = _storeLocationBL.GetStoreInventory(storeLocation.Address, storeLocation.Location);
+            ViewBag.OrderId = id;
+            List<string> dogStrings = new List<string>();
+            foreach(Item i in items)
+            {
+                Dog dog = _storeLocationBL.GetDog(i.DogId);
+                string dogString = dog.Breed + ", " + dog.Gender.ToString() + ", Count: " + i.Quantity.ToString();
+                dogStrings.Add(dogString);
+            }
+            OrderItemVM orderItemVM = new OrderItemVM();
+            orderItemVM.OrderId = id;
+            orderItemVM.DogStringList = dogStrings;
+            return View(orderItemVM);
+        }
         // POST: DogOrderController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,9 +88,10 @@ namespace DSWebUI.Controllers
             {
                 DogBuyer dogBuyer = _buyerBL.FindUser(dogOrderVM.BuyerId);
                 StoreLocation storeLoc = _storeLocationBL.GetStore(dogOrderVM.StoreId);
-
+                
                 DogOrder dogOrder = new DogOrder(dogBuyer, 0, storeLoc);
                 dogOrder = _orderBL.AddOrder(dogOrder);
+
                 return RedirectToAction(nameof(Index), new { id = dogOrder.Id});
             }
             catch

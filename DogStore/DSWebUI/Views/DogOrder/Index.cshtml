@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Add Item to Order", "CreateOrderItem", new { id = ViewBag.OrderId })
 </p>
 <table class="table">
     <thead>

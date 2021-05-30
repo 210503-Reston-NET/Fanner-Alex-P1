@@ -768,5 +768,20 @@ namespace DSDL
                 return null;
             }
         }
+
+        public DogOrder GetOrder(int id)
+        {
+            try
+            {
+                DogOrder dogOrder = (from dO in _context.DogOrders
+                                     where dO.Id == id
+                                     select dO).Single();
+                return dogOrder;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -47,5 +47,6 @@ namespace DSDL
         Dog FindDog(int dogId);
         List<OrderItem> GetOrderItems(int id);
         DogOrder UpdateOrder(int id);
+        DogOrder GetOrder(int id);
     }
 }
