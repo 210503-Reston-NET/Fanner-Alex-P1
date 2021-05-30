@@ -23,5 +23,7 @@ namespace DSBL
         Item AddItem(StoreLocation store, Dog dog, int quant);
         StoreLocation GetStore(int Id);
         Dog GetDog(int Id);
+        Dog FindDog(string breed, char gender);
+        
     }
 }

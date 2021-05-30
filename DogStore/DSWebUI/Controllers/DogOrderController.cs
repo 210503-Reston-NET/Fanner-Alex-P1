@@ -71,13 +71,41 @@ namespace DSWebUI.Controllers
             foreach(Item i in items)
             {
                 Dog dog = _storeLocationBL.GetDog(i.DogId);
-                string dogString = dog.Breed + ", " + dog.Gender.ToString() + ", Count: " + i.Quantity.ToString();
+                string dogString = dog.Breed + ", " + dog.Gender.ToString() + ", " + dog.Price.ToString() + " USD, Count: " + i.Quantity.ToString();
                 dogStrings.Add(dogString);
             }
             OrderItemVM orderItemVM = new OrderItemVM();
             orderItemVM.OrderId = id;
             orderItemVM.DogStringList = dogStrings;
             return View(orderItemVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateOrderItem(OrderItemVM orderItemVM) {
+            try
+            {
+                string[] OrderParts = orderItemVM.DogString.Split(new string[] { ", " }, StringSplitOptions.None);
+                orderItemVM.Breed = OrderParts[0];
+                orderItemVM.Gender = OrderParts[1].ToCharArray()[0];
+                orderItemVM.Price = double.Parse(OrderParts[2].Remove(OrderParts[2].Length - 3));
+                int maxQuant = int.Parse(OrderParts[3].Split(new string[] { ": " }, StringSplitOptions.None)[1]);
+                Dog dog = _storeLocationBL.FindDog(orderItemVM.Breed, orderItemVM.Gender);
+                DogOrder dogOrder = _orderBL.GetOrder(orderItemVM.OrderId);
+                int storeId = dogOrder.StoreId;
+                OrderItem orderItem = new OrderItem();
+                orderItem.OrderId = dogOrder.Id;
+                orderItem.DogId = dog.Id;
+                orderItem.Quantity = orderItemVM.Quantity;
+                _orderBL.AddOrderItem(orderItem, maxQuant, storeId);
+                dogOrder.Total += orderItemVM.Price*orderItemVM.Quantity;
+                _orderBL.UpdateOrder(dogOrder);
+                return RedirectToAction(nameof(Index), new { id = orderItemVM.OrderId });
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index), new { id = orderItemVM.OrderId });
+            }
+
         }
         // POST: DogOrderController/Create
         [HttpPost]

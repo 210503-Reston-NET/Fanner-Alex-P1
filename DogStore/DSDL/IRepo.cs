@@ -46,7 +46,9 @@ namespace DSDL
         StoreLocation FindStore(int storeId);
         Dog FindDog(int dogId);
         List<OrderItem> GetOrderItems(int id);
-        DogOrder UpdateOrder(int id);
+        DogOrder UpdateOrder(DogOrder dogOrder);
         DogOrder GetOrder(int id);
+        OrderItem AddOrderItem(OrderItem orderItem, int storeId);
+        Dog FindDog(string breed, char gender);
     }
 }

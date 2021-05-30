@@ -19,6 +19,13 @@ namespace DSBL
             return _repoDS.AddOrder(dogOrder);
         }
 
+        public OrderItem AddOrderItem(OrderItem orderItem, int maxquant, int storeId)
+        {
+            if (orderItem.Quantity > maxquant) return null;
+            else if (orderItem.Quantity == 0) return null;
+            else return _repoDS.AddOrderItem(orderItem, storeId);
+        }
+
         public List<DogOrder> FindStoreOrders(string address, string location, int option)
         {
             return _repoDS.FindStoreOrders(address, location, option);
@@ -37,9 +44,9 @@ namespace DSBL
         public List<OrderItem> GetOrderItems(int id) {
             return _repoDS.GetOrderItems(id);
         }
-        public DogOrder UpdateOrder(int id)
+        public DogOrder UpdateOrder(DogOrder dogOrder)
         {
-            return _repoDS.UpdateOrder(id);
+            return _repoDS.UpdateOrder(dogOrder);
         }
     }
 }

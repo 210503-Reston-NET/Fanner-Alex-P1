@@ -28,7 +28,7 @@ namespace DSWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<FannerDogsDBContext>(options => options.UseNpgsql(parseElephantSQLURL(this.Configuration.GetConnectionString("FannerDogsDB"))));
+            services.AddDbContext<FannerDogsDBContext>(options => options.UseNpgsql(parseElephantSQLURL(Configuration.GetConnectionString("FannerDogsDB"))));
             services.AddScoped<IRepo, Repo>();
             services.AddScoped<IBuyerBL, BuyerBL>();
             services.AddScoped<IManagerBL, ManagerBL>();

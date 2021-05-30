@@ -752,13 +752,11 @@ namespace DSDL
             }
         }
 
-        public DogOrder UpdateOrder(int id)
+        public DogOrder UpdateOrder(DogOrder dogOrder)
         {
             try
             {
-                DogOrder dogOrder = (from dO in _context.DogOrders
-                                     where dO.Id == id
-                                     select dO).Single();
+                
                 _context.DogOrders.Update(dogOrder);
                 _context.SaveChanges();
                 return dogOrder;
@@ -780,6 +778,62 @@ namespace DSDL
             }
             catch (Exception)
             {
+                return null;
+            }
+        }
+
+        public OrderItem AddOrderItem(OrderItem orderItem, int storeId)
+        {
+            try {
+                OrderItem checkifinDB = (from oI in _context.OrderItems
+                                         where oI.OrderId == orderItem.OrderId &&
+                                         oI.DogId == orderItem.DogId
+                                         select oI).Single();
+                return null;
+            }
+            catch (Exception) {
+                _context.OrderItems.Add(orderItem);
+                _context.SaveChanges();
+                DecInv(storeId, orderItem.DogId, orderItem.Quantity);
+                return orderItem;
+            }
+        }
+
+        public Dog FindDog(string breed, char gender)
+        {
+            try
+            {
+                Dog findDog = (from d in _context.Dogs
+                               where d.Breed == breed &&
+                               d.Gender == gender
+                               select d).Single();
+                return findDog;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public Inventory DecInv(int storeId, int dogId, int quant)
+        {
+            try
+            {
+                Inventory itemDec = (from inv in _context.Inventories
+                                     where inv.StoreId == storeId &&
+                                     inv.DogId == dogId
+                                     select inv).Single();
+                itemDec.Quantity -= quant;
+                if (itemDec.Quantity == 0)
+                {
+                    _context.Inventories.Remove(itemDec);
+                    _context.SaveChanges();
+
+                }
+                return itemDec;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Item not found");
                 return null;
             }
         }

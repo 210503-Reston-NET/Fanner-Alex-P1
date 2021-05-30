@@ -94,5 +94,10 @@ namespace DSBL
         {
             return _repoDS.FindDog(Id);
         }
+
+        public Dog FindDog(string breed, char gender)
+        {
+            return _repoDS.FindDog(breed, gender);
+        }
     }
 }
