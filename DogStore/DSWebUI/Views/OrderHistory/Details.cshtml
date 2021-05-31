@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<DSWebUI.Models.OrderItemVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Index</h1>
+<h1>Order Details</h1>
 
-<p>
-    @Html.ActionLink("Add Item to Order", "CreateOrderItem", new { id = ViewBag.OrderId })
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -51,6 +48,3 @@
 }
     </tbody>
 </table>
-<p>
-    @Html.ActionLink("Complete Order", "CompleteOrder", new { id = ViewBag.OrderId })
-</p>

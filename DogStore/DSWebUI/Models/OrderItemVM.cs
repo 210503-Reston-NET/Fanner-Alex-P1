@@ -9,12 +9,14 @@ namespace DSWebUI.Models
     public class OrderItemVM
     {
         public OrderItemVM() { }
+
         public string Breed { get; set; }
         public int OrderId { get; set; }
         public char Gender { get; set; }
         public int DogId { get; set; }
         public double Price { get; set; }
         public List<string> DogStringList { get; set; }
+        [Display(Name = "Store Inventory")]
         public string DogString { get; set; }
         [Required]
         [Range(1, 10, ErrorMessage = "Must be between 1 and 10")]

@@ -60,7 +60,13 @@ namespace DSWebUI.Controllers
             dogOrderVM.StoreId = id;
             return View(dogOrderVM);
         }
-
+        public ActionResult CompleteOrder(int id)
+        {
+            DogOrder dogOrder = _orderBL.GetOrder(id);
+            dogOrder.OrderDate = DateTime.Now;
+            _orderBL.UpdateOrder(dogOrder);
+            return View("../Home/Index");
+        }
         public ActionResult CreateOrderItem(int id)
         {
             DogOrder order = _orderBL.GetOrder(id);
@@ -96,7 +102,7 @@ namespace DSWebUI.Controllers
                 orderItem.OrderId = dogOrder.Id;
                 orderItem.DogId = dog.Id;
                 orderItem.Quantity = orderItemVM.Quantity;
-                _orderBL.AddOrderItem(orderItem, maxQuant, storeId);
+                if(_orderBL.AddOrderItem(orderItem, maxQuant, storeId) == null) return RedirectToAction(nameof(Index), new { id = orderItemVM.OrderId });
                 dogOrder.Total += orderItemVM.Price*orderItemVM.Quantity;
                 _orderBL.UpdateOrder(dogOrder);
                 return RedirectToAction(nameof(Index), new { id = orderItemVM.OrderId });

@@ -34,6 +34,14 @@ namespace DSDL
         {
             try
             {
+                StoreLocation storeLocation = (from sto in _context.StoreLocations
+                                               where sto.Address == store.Address
+                                               && sto.Location == store.Location
+                                               select sto).Single();
+                return null;
+            }catch (Exception e) { }
+            try
+            {
                 StoreLocation storeLo = new StoreLocation();
                 storeLo.Location = store.Location;
                 storeLo.Address = store.Address;
@@ -219,7 +227,8 @@ namespace DSDL
         public Model.StoreLocation FindStore(int storeId)
         {
             //StoreLocation store = new StoreLocation(address, location);
-            return GetAllStoreLocations().First(stor => stor.Id == storeId);
+            try { return GetAllStoreLocations().First(stor => stor.Id == storeId); }
+            catch (Exception) { return null; }
             //from StoreLocation in _context.StoreLocations where
         }
         /// <summary>
@@ -547,6 +556,8 @@ namespace DSDL
                     storeLocation
                 );
                 returnOrder.OrderDate = dogOrder.OrderDate;
+                returnOrder.StoreId = storeLocation.Id;
+                returnOrder.Id = dogOrder.Id;
                 foreach (OrderItem orderItem in orderItems)
                 {
                     dog = (
@@ -734,9 +745,16 @@ namespace DSDL
 
         public Dog FindDog(int dogId)
         {
-            return (from d in _context.Dogs
-                    where d.Id == dogId
-                    select d).Single();
+            try
+            {
+                return (from d in _context.Dogs
+                        where d.Id == dogId
+                        select d).Single();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public List<OrderItem> GetOrderItems(int id)
