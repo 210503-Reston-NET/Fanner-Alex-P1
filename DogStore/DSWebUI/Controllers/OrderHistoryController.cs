@@ -21,6 +21,36 @@ namespace DSWebUI.Controllers
             _storeLocationBL = storeLocationBL;
             _orderBL = orderBL;
         }
+        public ActionResult StoOrdIndex(int id, int option)
+        {
+            StoreLocation store = _storeLocationBL.GetStore(id);
+            List<DogOrder> dogOrders = _orderBL.FindStoreOrders(store.Address, store.Location, option);
+            List<BuyerHistoryVM> buyerHistories = new List<BuyerHistoryVM>();
+
+            foreach (DogOrder dO in dogOrders)
+            {
+                BuyerHistoryVM buyerHistory = new BuyerHistoryVM();
+                buyerHistory.OrderId = dO.Id;
+                if (_buyerBL.FindUser(dO.BuyerId) != null)
+                {
+                    DogBuyer dogBuyer = _buyerBL.FindUser(dO.BuyerId);
+                    buyerHistory.BuyerName = dogBuyer.Name;
+                    buyerHistory.BuyerNumber = id;
+                    
+                }
+                else
+                {
+                    buyerHistory.BuyerName = "Not Found";
+                    buyerHistory.BuyerNumber = 0;
+                }
+                buyerHistory.StoreName = store.Location;
+                buyerHistory.Address = store.Address;
+                buyerHistory.Total = dO.Total;
+                buyerHistory.OrderDate = dO.OrderDate;
+                buyerHistories.Add(buyerHistory);
+            }
+            return View(buyerHistories);
+        }
         // GET: OrderHistoryController
         public ActionResult Index(long id, int option)
         {
@@ -84,7 +114,25 @@ namespace DSWebUI.Controllers
             buyerHistoryVM.BuyerNumber = id;
             return View(buyerHistoryVM);
         }
-
+        public ActionResult StoHisCreate(int id)
+        {
+            BuyerHistoryVM buyerHistoryVM = new BuyerHistoryVM();
+            buyerHistoryVM.StoreId = id;
+            return View(buyerHistoryVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StoHisCreate(BuyerHistoryVM buyerHistoryVM)
+        {
+            try
+            {
+                return RedirectToAction(nameof(StoOrdIndex), new { id = buyerHistoryVM.StoreId, option = buyerHistoryVM.OrderOption });
+            }
+            catch
+            {
+                return View();
+            }
+        }
         // POST: OrderHistoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

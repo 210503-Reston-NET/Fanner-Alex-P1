@@ -653,6 +653,8 @@ namespace DSDL
                     store
                 );
                 returnOrder.OrderDate = dogOrder.OrderDate;
+                returnOrder.Id = dogOrder.Id;
+                returnOrder.BuyerId = dogOrder.BuyerId;
                 foreach (OrderItem orderItem in orderItems)
                 {
                     dog = (
