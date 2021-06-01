@@ -703,7 +703,11 @@ namespace DSDL
             }
             return returningDogManagers;
         }
-
+        /// <summary>
+        /// Get mmanager
+        /// </summary>
+        /// <param name="phonenumber"></param>
+        /// <returns></returns>
         public List<StoreLocation> GetManagerStores(long phonenumber)
         {
             try {
