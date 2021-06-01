@@ -791,7 +791,7 @@ namespace DSDL
                 DogOrder dogOrder = (from dO in _context.DogOrders
                                      where dO.Id == id
                                      select dO).Single();
-                Log.Information("Retrieved order with id: " id.ToString());
+                Log.Information("Retrieved order with id: " + id.ToString());
                 return dogOrder;
             }
             catch (Exception)
