@@ -759,7 +759,11 @@ namespace DSDL
                 return null;
             }
         }
-
+        /// <summary>
+        /// Get all Order Items related to a certain order Id
+        /// </summary>
+        /// <param name="id">OrderId of order related to items</param>
+        /// <returns>List<OrderItem> for the order, new list if not found</returns>
         public List<OrderItem> GetOrderItems(int id)
         {
             try
@@ -774,7 +778,12 @@ namespace DSDL
                 return new List<OrderItem>();
             }
         }
-
+        /// <summary>
+        /// Updates an order, mainly used for incrementing total and setting the correct date of 
+        /// an order
+        /// </summary>
+        /// <param name="dogOrder"></param>
+        /// <returns></returns>
         public DogOrder UpdateOrder(DogOrder dogOrder)
         {
             try
