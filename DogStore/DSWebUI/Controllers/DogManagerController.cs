@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSBL;
 using DSWebUI.Models;
+using Serilog;
+
 namespace DSWebUI.Controllers
 {
     public class DogManagerController : Controller
@@ -32,6 +34,7 @@ namespace DSWebUI.Controllers
         // GET: DogManagerController/Create
         public ActionResult Create()
         {
+            Log.Information("Sending user to Dog Manager View");
             return View();
         }
 
@@ -52,7 +55,7 @@ namespace DSWebUI.Controllers
                         PhoneNumber = dogManagerVM.PhoneNumber
                     }
                         );
-
+                    Log.Information("Added phone number with " + dogManagerVM.PhoneNumber.ToString());
                     return RedirectToAction(nameof(Index));
                 }
                 else return View();

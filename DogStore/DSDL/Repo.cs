@@ -53,16 +53,12 @@ namespace DSDL
                 ManagesStore managesStore = new ManagesStore();
 
                 _context.SaveChanges();
-               /* StoreLocation dS = (
-                                        from storeLoc in _context.StoreLocations
-                                        where
-                                        storeLoc.Address == storeLoc.Address && storeLoc.Location == storeLoc.Location
-                                        select storeLoc
-                                        ).Single();*/
+                Log.Information("Saved new store: " + store.Location + ", " + store.Address);
                 managesStore.DogManagerId = dogManager.PhoneNumber;
                 managesStore.StoreLocationId = storeLo.Id;
                 _context.ManagesStores.Add(managesStore);
                 _context.SaveChanges();
+                Log.Information("Updated managesStore relationship");
             }
             catch (Exception ex)
             {
@@ -79,6 +75,7 @@ namespace DSDL
         {
             List<Model.StoreLocation> storeList = new List<Model.StoreLocation>();
             List<StoreLocation> StoreLocationList = (from storeLoc in _context.StoreLocations select storeLoc).ToList();
+            Log.Information("Successfully retrieved stores");
             foreach (StoreLocation dS in StoreLocationList)
             {
                 storeList.Add(new StoreLocation(dS.Id, dS.Address, dS.Location));
@@ -228,7 +225,9 @@ namespace DSDL
         {
             //StoreLocation store = new StoreLocation(address, location);
             try { return GetAllStoreLocations().First(stor => stor.Id == storeId); }
-            catch (Exception) { return null; }
+            catch (Exception) {
+                Log.Error("Unable to find store with Id: " + storeId.ToString());
+                return null; }
             //from StoreLocation in _context.StoreLocations where
         }
         /// <summary>
@@ -279,7 +278,7 @@ namespace DSDL
                                         ).Single();
                 if (inv.Quantity < quant)
                 {
-                    Console.WriteLine("Store doesn't have that many of that dog!");
+                    Log.Error("Store doesn't have that many of that dog!");
                     throw new Exception();
                 }
                 else
@@ -307,11 +306,12 @@ namespace DSDL
             {
                 Item itemToBeInc = FindItem(store, dog, quant);
                 itemToBeInc.Quantity += quant;
+                Log.Information("Item successfully stocked for following store, dog breed: " + store.Location + " " + store.Address + ", " + dog.Breed);
                 return itemToBeInc;
             }
             catch (Exception)
             {
-                Console.WriteLine("Item not found");
+                Log.Error("Item not found");
                 return new Inventory(dog, quant);
             }
         }
@@ -331,11 +331,12 @@ namespace DSDL
                                             dogBuy.PhoneNumber == phoneNumber
                                             select dogBuy
                                             ).Single();
+                Log.Information("Buyer with id: " + phoneNumber.ToString() + " retrieved from DB");
                 return new Model.DogBuyer(dogBuyer.Name, dogBuyer.Address, dogBuyer.PhoneNumber);
             }
             catch (Exception e)
             {
-                Log.Debug(e.Message);
+                Log.Error(e.Message);
                 return null;
             }
         }
@@ -361,7 +362,7 @@ namespace DSDL
             }
             catch (Exception e)
             {
-                Log.Debug(e.Message);
+                Log.Error(e.Message);
                 return null;
             }
         }
@@ -379,6 +380,7 @@ namespace DSDL
             dogBuyer.Address = buyer.Address;
             _context.DogBuyers.Add(dogBuyer);
             _context.SaveChanges();
+            Log.Information("Buyer with number: " + buyer.PhoneNumber.ToString() + " added");
             return buyer;
         }
 
@@ -397,11 +399,12 @@ namespace DSDL
                                             dogMan.PhoneNumber == phoneNumber
                                             select dogMan
                                             ).Single();
+                Log.Information("Manager with number " + phoneNumber.ToString() + " retrieved from the db");
                 return new Model.DogManager(dogManager.PhoneNumber, dogManager.Address, dogManager.Name);
             }
             catch (Exception e)
             {
-                Log.Debug(e.Message);
+                Log.Error(e.Message);
                 return null;
             }
         }
@@ -419,6 +422,7 @@ namespace DSDL
             dogManager.Address = manager.Address;
             _context.DogManagers.Add(dogManager);
             _context.SaveChanges();
+            Log.Information("Manager added with number: " + manager.PhoneNumber.ToString());
             return manager;
         }
 
@@ -448,28 +452,12 @@ namespace DSDL
                                 dogOr.Total == dogOrder.Total
                             select dogOr
                 ).Single();
-                /*foreach (Model.Item item in dogOrder.GetItems())
-                {
-                    Inventory inv = (
-                                            from inv1 in _context.Inventories
-                                            where
-                                            inv1.StoreId == dogOrder.StoreLocation.Id && inv1.DogId == item.Dog.Id
-                                            select inv1
-                                            ).Single();
-                    inv.Quantity -= item.Quantity;
-                    _context.SaveChanges();
-                    orderItem = new OrderItem();
-                    orderItem.DogId = item.Dog.Id;
-                    orderItem.OrderId = dogOrd.Id;
-                    orderItem.Quantity = item.Quantity;
-                    _context.OrderItems.Add(orderItem);
-                    _context.SaveChanges();
-                }*/
+                Log.Information("Successfully added order");
                 return dogOrd;
             }
             catch (Exception e)
             {
-                Console.WriteLine("Something went wrong :(");
+                
                 Log.Error(e.Message);
                 return dogOrder;
             }
@@ -484,6 +472,7 @@ namespace DSDL
         /// <returns>List of orders user has purchased</returns>
         public List<Model.DogOrder> FindUserOrders(long phoneNumber, int option)
         {
+            Log.Information("Beginning to search for orders from BuyerId: " + phoneNumber.ToString());
             Model.DogBuyer dogBuyer = FindBuyer(phoneNumber);
             List<DogOrder> dogOrders = new List<DogOrder>();
             switch (option)
@@ -588,6 +577,7 @@ namespace DSDL
         {
             Model.StoreLocation store = FindStore(address, location);
             List<DogOrder> dogOrders = new List<DogOrder>();
+            Log.Information("Beginning to search for orders from Store: " + location + " " + address);
             switch (option)
             {
                 case 1:
@@ -737,6 +727,7 @@ namespace DSDL
                         if (m.StoreLocationId == s.Id) returnStores.Add(s);
                     }
                 }
+                Log.Information("Got manager's stores for: " + phonenumber.ToString());
                 return returnStores;
             }
             catch(Exception e)
@@ -752,9 +743,11 @@ namespace DSDL
                 return (from d in _context.Dogs
                         where d.Id == dogId
                         select d).Single();
+                Log.Information("Found dog with id: " + dogId.ToString());
             }
             catch (Exception)
             {
+                Log.Error("Dog Not found in DB");
                 return null;
             }
         }
@@ -766,8 +759,10 @@ namespace DSDL
                 return (from dO in _context.OrderItems
                         where dO.OrderId == id
                         select dO).ToList();
+                Log.Information("Retrieved order items for " + id.ToString());
             }catch(Exception e)
             {
+                Log.Information("New List for customer to start order");
                 return new List<OrderItem>();
             }
         }
@@ -779,10 +774,12 @@ namespace DSDL
                 
                 _context.DogOrders.Update(dogOrder);
                 _context.SaveChanges();
+                Log.Information("Order updated in db");
                 return dogOrder;
             }
             catch (Exception)
             {
+                Log.Error("Tried to update order and failed");
                 return null;
             }
         }
@@ -794,10 +791,12 @@ namespace DSDL
                 DogOrder dogOrder = (from dO in _context.DogOrders
                                      where dO.Id == id
                                      select dO).Single();
+                Log.Information("Retrieved order with id: " id.ToString());
                 return dogOrder;
             }
             catch (Exception)
             {
+                Log.Error("Order not found");
                 return null;
             }
         }
@@ -809,6 +808,7 @@ namespace DSDL
                                          where oI.OrderId == orderItem.OrderId &&
                                          oI.DogId == orderItem.DogId
                                          select oI).Single();
+                Log.Error("User tried to add dog that was already in order, dogId: " + orderItem.DogId.ToString());
                 return null;
             }
             catch (Exception) {
@@ -827,10 +827,12 @@ namespace DSDL
                                where d.Breed == breed &&
                                d.Gender == gender
                                select d).Single();
+                Log.Information("Found the dog of breed and gender: " + breed +", " + gender.ToString());
                 return findDog;
             }
             catch (Exception)
             {
+                Log.Error("Dog Not Found");
                 return null;
             }
         }
@@ -845,6 +847,7 @@ namespace DSDL
                 itemDec.Quantity -= quant;
                 if (itemDec.Quantity == 0)
                 {
+                    Log.Information("Removed item with dogId: " + dogId.ToString() + "from storeId: " + storeId.ToString() + " beacause quantity was 0");
                     _context.Inventories.Remove(itemDec);
                     _context.SaveChanges();
 
@@ -862,6 +865,7 @@ namespace DSDL
         {
             try
             {
+                Log.Debug("Calling database to retrieve dogs");
                 return (from d in _context.Dogs
                         select d).ToList();
             }
@@ -878,10 +882,12 @@ namespace DSDL
                          where d.Breed == dog.Breed &&
                          d.Gender == dog.Gender
                          select d).Single();
+                Log.Error("Dog Should not be in Database, sending user back");
                 return null;
             }
             catch (Exception)
             {
+                Log.Information("Adding dog with breed and gender: " + dog.Breed + ", " + dog.Gender.ToString());
                 _context.Dogs.Add(dog);
                 _context.SaveChanges();
                 return dog;

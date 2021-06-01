@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DSBL;
 using DSWebUI.Models;
+using Serilog;
 
 namespace DSWebUI.Controllers
 {
@@ -44,6 +45,7 @@ namespace DSWebUI.Controllers
         public ActionResult Create()
         {
             DogVM dogVM = new DogVM();
+            Log.Information("Sending user to New Dog Creation");
             return View(dogVM);
         }
 
