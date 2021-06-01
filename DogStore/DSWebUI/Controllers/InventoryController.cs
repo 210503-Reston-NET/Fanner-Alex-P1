@@ -47,8 +47,17 @@ namespace DSWebUI.Controllers
         // GET: InventoryController/Create
         public ActionResult Create(int id)
         {
+            List<Dog> dogs = _storeLocationBL.GetDogs();
+            List<string> dogStrings = new List<string>();
+            foreach(Dog dog in dogs)
+            {
+
+                string dogString = dog.Breed + ", " + dog.Gender.ToString() + ", " + dog.Price.ToString() + " USD";
+                dogStrings.Add(dogString);
+            }
             InventoryVM invent = new InventoryVM();
             invent.StoreLocationId = id;
+            invent.DogStringList = dogStrings;
             return View(invent);
         }
 
@@ -59,6 +68,10 @@ namespace DSWebUI.Controllers
         {
             try
             {
+                string[] OrderParts = inventoryVM.DogString.Split(new string[] { ", " }, StringSplitOptions.None);
+                inventoryVM.Breed = OrderParts[0];
+                inventoryVM.Gender = OrderParts[1].ToCharArray()[0];
+                inventoryVM.Price = double.Parse(OrderParts[2].Remove(OrderParts[2].Length - 3));
                 StoreLocation storeLocation = _storeLocationBL.GetStore(inventoryVM.StoreLocationId);
                 // if (ModelState.IsValid)
                 // {

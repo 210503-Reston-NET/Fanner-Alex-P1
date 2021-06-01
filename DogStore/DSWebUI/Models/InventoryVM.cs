@@ -22,22 +22,22 @@ namespace DSWebUI.Models
             Store = inv.Store;
             
         }
+        public List<string> DogStringList { get; set; }
+        [Required]
+        [Display(Name = "Dogs In Database")]
+        public string DogString { get; set; }
         public int DogId { get; set; }
         [Required]
         [Range(1, 100, ErrorMessage = "Must be between 1 and 100")]
         public int Quantity { get; set; }
         public int StoreLocationId { get; set; }
         public StoreLocation Store { get; set; }
-        [Required]
-        [RegularExpression(@"^[a-zA-Z ]{4,}$", ErrorMessage = "Letters only please!")]
+       
         public string Breed { get; set; }
 
-        [Required]
         public char Gender { get; set; }
 
-        [Required]
-        [RegularExpression(@"^[0-9]{2,}.[0-9]{1,2}$", ErrorMessage = "Please enter price in Dollars.Cents form")]
-        [Range(20,20000, ErrorMessage = "Please keep the price between 20 and 20,000 dollars")]
+
         public double Price { get; set; }
     }
 }

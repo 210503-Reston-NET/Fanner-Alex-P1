@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DSWebUI.Models.InventoryVM>
+﻿@model IEnumerable<DSWebUI.Models.DogVM>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,17 +7,11 @@
 <h1>Index</h1>
 
 <p>
-    @Html.ActionLink("Add Dog(s) In Database to The Inventory", "Create", new { id = ViewBag.StoreLocation.Id })
-</p>
-<p>
-    @Html.ActionLink("Add Dog to The Database", "Create", "Dog", new{})
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DogId)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Breed)
             </th>
@@ -27,18 +21,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DogId)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Breed)
             </td>
@@ -47,9 +35,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

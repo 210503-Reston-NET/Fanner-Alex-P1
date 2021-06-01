@@ -50,5 +50,7 @@ namespace DSDL
         DogOrder GetOrder(int id);
         OrderItem AddOrderItem(OrderItem orderItem, int storeId);
         Dog FindDog(string breed, char gender);
+        List<Dog> GetDogs();
+        Dog AddDog(Dog dog);
     }
 }

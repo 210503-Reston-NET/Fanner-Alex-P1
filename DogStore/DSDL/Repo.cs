@@ -857,5 +857,35 @@ namespace DSDL
                 return null;
             }
         }
+
+        public List<Dog> GetDogs()
+        {
+            try
+            {
+                return (from d in _context.Dogs
+                        select d).ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public Dog AddDog(Dog dog)
+        {
+            try {
+                Dog checkDogInDB = (from d in _context.Dogs
+                         where d.Breed == dog.Breed &&
+                         d.Gender == dog.Gender
+                         select d).Single();
+                return null;
+            }
+            catch (Exception)
+            {
+                _context.Dogs.Add(dog);
+                _context.SaveChanges();
+                return dog;
+            }
+        }
     }
 }
