@@ -19,7 +19,7 @@ namespace DSWebUI
             Config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile("appsettings.Production.json", true,
+                .AddJsonFile("appsettings.Development.json", true,
                     true)
                 .AddCommandLine(args)
                 .AddEnvironmentVariables()
