@@ -39,7 +39,7 @@
             <td>
                 @Html.ActionLink("Order History", "StoHisCreate", "OrderHistory", new {id = item.Id}) |
                 <!--@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })-->
-                @Html.ActionLink("Items", "Index", "Inventory", new { id = item.Id }) |
+                <!--@Html.ActionLink("Items", "Index", "Inventory", new { id = item.Id }) |-->
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id, num = ViewBag.DogManager.PhoneNumber })
             </td>
         </tr>

@@ -5,11 +5,14 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  
 }
-
+.navbar-custom {
+    background-color: #a9dcd6;
+}
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+  color: #f4a201;
 }
 
 .btn-primary {
@@ -17,7 +20,12 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+input[type="text"], textarea {
+    background-color: #f9dada;
+}
+input[type="number"], textarea {
+    background-color: #f9dada;
+}
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
@@ -59,8 +67,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #abeeaa;
 }
 .footer {
   position: absolute;
