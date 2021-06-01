@@ -380,7 +380,7 @@ namespace DSDL
             dogBuyer.Address = buyer.Address;
             _context.DogBuyers.Add(dogBuyer);
             _context.SaveChanges();
-            Log.Information("Buyer with number: " + buyer.PhoneNumber.ToString() + " added");
+            Log.Information("Buyer with number: " + buyer.PhoneNumber.ToString() + " added to DB");
             return buyer;
         }
 
@@ -422,7 +422,7 @@ namespace DSDL
             dogManager.Address = manager.Address;
             _context.DogManagers.Add(dogManager);
             _context.SaveChanges();
-            Log.Information("Manager added with number: " + manager.PhoneNumber.ToString());
+            Log.Information("Manager added to the database with number: " + manager.PhoneNumber.ToString());
             return manager;
         }
 
@@ -704,10 +704,10 @@ namespace DSDL
             return returningDogManagers;
         }
         /// <summary>
-        /// Get mmanager
+        /// From a manager's number, get related stores
         /// </summary>
-        /// <param name="phonenumber"></param>
-        /// <returns></returns>
+        /// <param name="phonenumber">Manager's phone number</param>
+        /// <returns>List of Manager's stores as List<StoreLocation></StoreLocation></returns>
         public List<StoreLocation> GetManagerStores(long phonenumber)
         {
             try {
@@ -739,7 +739,11 @@ namespace DSDL
                 return new List<StoreLocation>();
             }
         }
-
+        /// <summary>
+        /// Retrieve a dog by its Id
+        /// </summary>
+        /// <param name="dogId">Unique Id for breed and gender of dog</param>
+        /// <returns>Dog if found null otherwise</returns>
         public Dog FindDog(int dogId)
         {
             try
