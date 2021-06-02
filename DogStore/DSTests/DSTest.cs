@@ -288,7 +288,22 @@ namespace DSTests
             }
 
         }
-        
+        /// <summary>
+        /// Making sure new add and find dog methods work out
+        /// </summary>
+        [Fact]
+        public void AddDogShouldBeFound()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IRepo _repoDS = new Repo(context);
+                _repoDS.AddDog(new Dog("Shiba Inu", 'f', 300.50));
+                Dog dog = _repoDS.FindDog("Shiba Inu", 'f');
+                string expected = "Shiba Inu";
+                string actual = dog.Breed;
+                Assert.Equal(expected, actual);
+            }
+        }
         private void Seed(){
             using(var context = new FannerDogsDBContext(options)){
                 context.Database.EnsureDeleted();

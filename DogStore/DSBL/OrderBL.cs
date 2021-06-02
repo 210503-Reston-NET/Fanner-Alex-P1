@@ -18,7 +18,13 @@ namespace DSBL
         {
             return _repoDS.AddOrder(dogOrder);
         }
-
+        /// <summary>
+        /// Check if quantity is valid and then insert into database
+        /// </summary>
+        /// <param name="orderItem">Order Item to be added</param>
+        /// <param name="maxquant">Max quantity user can buy</param>
+        /// <param name="storeId">Store which items are to be ordered from</param>
+        /// <returns>Order Item added, null otherwise</returns>
         public OrderItem AddOrderItem(OrderItem orderItem, int maxquant, int storeId)
         {
             if (orderItem.Quantity > maxquant) return null;

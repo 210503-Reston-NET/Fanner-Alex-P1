@@ -119,3 +119,86 @@
 2021-06-01 19:47:36.158 -05:00 [INF] Successfully retrieved stores
 2021-06-01 19:47:36.173 -05:00 [INF] Successfully retrieved stores
 2021-06-01 19:47:36.191 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:05:51.900 -05:00 [INF] Initial build starting
+2021-06-01 22:07:31.448 -05:00 [INF] Manager with number 6127500745 retrieved from the db
+2021-06-01 22:07:31.580 -05:00 [INF] Got manager's stores for: 6127500745
+2021-06-01 22:07:33.314 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:07:33.336 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:07:33.478 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:07:33.479 -05:00 [INF] Dobermann
+2021-06-01 22:07:33.479 -05:00 [INF] f
+2021-06-01 22:07:33.480 -05:00 [INF] 525.8
+2021-06-01 22:07:35.051 -05:00 [INF] Sending user to New Dog Creation
+2021-06-01 22:07:51.013 -05:00 [INF] Manager with number 6127500745 retrieved from the db
+2021-06-01 22:07:51.051 -05:00 [INF] Got manager's stores for: 6127500745
+2021-06-01 22:07:53.051 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:07:53.073 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:07:53.143 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:07:53.144 -05:00 [INF] Dobermann
+2021-06-01 22:07:53.144 -05:00 [INF] f
+2021-06-01 22:07:53.144 -05:00 [INF] 525.8
+2021-06-01 22:09:48.736 -05:00 [INF] Manager with number 3856974562 retrieved from the db
+2021-06-01 22:09:48.773 -05:00 [INF] Got manager's stores for: 3856974562
+2021-06-01 22:09:51.058 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:09:51.077 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:09:58.605 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:09:58.813 -05:00 [INF] Sequence contains no elementsdog found but not inventory, adding dog to store's inventory
+2021-06-01 22:09:59.043 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:09:59.070 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:09:59.130 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:09:59.130 -05:00 [INF] Chow Chow
+2021-06-01 22:09:59.130 -05:00 [INF] f
+2021-06-01 22:09:59.130 -05:00 [INF] 758.25
+2021-06-01 22:11:18.278 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:18.376 -05:00 [INF] Sequence contains no elementsdog found but not inventory, adding dog to store's inventory
+2021-06-01 22:11:18.445 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:18.471 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:18.534 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:11:18.534 -05:00 [INF] Chow Chow
+2021-06-01 22:11:18.534 -05:00 [INF] f
+2021-06-01 22:11:18.534 -05:00 [INF] 758.25
+2021-06-01 22:11:18.555 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:11:18.555 -05:00 [INF] Malteese
+2021-06-01 22:11:18.555 -05:00 [INF] m
+2021-06-01 22:11:18.555 -05:00 [INF] 900.35
+2021-06-01 22:11:21.803 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:28.986 -05:00 [INF] Buyer with id: 6127500745 retrieved from DB
+2021-06-01 22:11:29.007 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:29.121 -05:00 [INF] Successfully added order
+2021-06-01 22:11:30.724 -05:00 [INF] Retrieved order with id: 14
+2021-06-01 22:11:30.744 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:30.808 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:11:30.808 -05:00 [INF] Chow Chow
+2021-06-01 22:11:30.808 -05:00 [INF] f
+2021-06-01 22:11:30.808 -05:00 [INF] 758.25
+2021-06-01 22:11:30.828 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:11:30.828 -05:00 [INF] Malteese
+2021-06-01 22:11:30.828 -05:00 [INF] m
+2021-06-01 22:11:30.828 -05:00 [INF] 900.35
+2021-06-01 22:11:36.060 -05:00 [INF] Found the dog of breed and gender: Chow Chow, f
+2021-06-01 22:11:36.080 -05:00 [INF] Retrieved order with id: 14
+2021-06-01 22:11:36.277 -05:00 [INF] Order updated in db
+2021-06-01 22:11:37.804 -05:00 [INF] Retrieved order with id: 14
+2021-06-01 22:11:37.828 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:37.888 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:11:37.888 -05:00 [INF] Chow Chow
+2021-06-01 22:11:37.888 -05:00 [INF] f
+2021-06-01 22:11:37.888 -05:00 [INF] 758.25
+2021-06-01 22:11:37.908 -05:00 [INF] Here's the item I'm about to create
+2021-06-01 22:11:37.908 -05:00 [INF] Malteese
+2021-06-01 22:11:37.908 -05:00 [INF] m
+2021-06-01 22:11:37.908 -05:00 [INF] 900.35
+2021-06-01 22:11:43.309 -05:00 [INF] Found the dog of breed and gender: Malteese, m
+2021-06-01 22:11:43.332 -05:00 [INF] Retrieved order with id: 14
+2021-06-01 22:11:43.508 -05:00 [INF] Order updated in db
+2021-06-01 22:11:45.167 -05:00 [INF] Retrieved order with id: 14
+2021-06-01 22:11:45.208 -05:00 [INF] Order updated in db
+2021-06-01 22:11:53.605 -05:00 [INF] Beginning to search for orders from BuyerId: 6127500745
+2021-06-01 22:11:53.627 -05:00 [INF] Buyer with id: 6127500745 retrieved from DB
+2021-06-01 22:11:53.904 -05:00 [INF] Buyer with id: 6127500745 retrieved from DB
+2021-06-01 22:11:53.923 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:53.942 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:53.962 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:53.980 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:53.999 -05:00 [INF] Successfully retrieved stores
+2021-06-01 22:11:54.019 -05:00 [INF] Successfully retrieved stores
