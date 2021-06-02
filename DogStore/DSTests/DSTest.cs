@@ -288,8 +288,7 @@ namespace DSTests
             }
 
         }
-        [Fact]
-        public void 
+        
         private void Seed(){
             using(var context = new FannerDogsDBContext(options)){
                 context.Database.EnsureDeleted();
