@@ -7,6 +7,8 @@ using DSDL;
 using Model = DSModels;
 
 using System.Linq;
+using DSModels;
+
 namespace DSTests
 {
     public class DSTest
@@ -268,6 +270,26 @@ namespace DSTests
                 Assert.Equal(managerNotThere, expected);
             }
         }
+        /// <summary>
+        /// Make sure new method GetManagerStores works by adding one and seeing if comes back correctly 
+        /// </summary>
+        [Fact]
+        public void GetManagerStoresShouldWork()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IRepo _repoDS = new Repo(context);
+                DogManager dogMananger = new DogManager(1234567890, "Test, TX", "Texas Toaster");
+                _repoDS.AddManager(dogMananger);
+                _repoDS.AddStoreLocation(new StoreLocation("Arbille, FL", "abill dogs"), dogMananger);
+                int GetManStorCount = _repoDS.GetManagerStores(1234567890).Count;
+                int expected = 1;
+                Assert.Equal(expected, GetManStorCount);
+            }
+
+        }
+        [Fact]
+        public void 
         private void Seed(){
             using(var context = new FannerDogsDBContext(options)){
                 context.Database.EnsureDeleted();

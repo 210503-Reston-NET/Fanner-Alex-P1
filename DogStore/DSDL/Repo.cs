@@ -782,8 +782,8 @@ namespace DSDL
         /// Updates an order, mainly used for incrementing total and setting the correct date of 
         /// an order
         /// </summary>
-        /// <param name="dogOrder"></param>
-        /// <returns></returns>
+        /// <param name="dogOrder">Order to be updated with its fields</param>
+        /// <returns>DogOrder if it is found, null otherwise</returns>
         public DogOrder UpdateOrder(DogOrder dogOrder)
         {
             try
@@ -800,7 +800,11 @@ namespace DSDL
                 return null;
             }
         }
-
+        /// <summary>
+        /// Get an Order with its unique id
+        /// </summary>
+        /// <param name="id">Id of the order to be found</param>
+        /// <returns>Order matching the id if found, null otherwise</returns>
         public DogOrder GetOrder(int id)
         {
             try
@@ -818,6 +822,12 @@ namespace DSDL
             }
         }
 
+        /// <summary>
+        /// Returns order Item to be ordered, returns null if it isn't found
+        /// </summary>
+        /// <param name="orderItem"> OrderItem to add to order</param>
+        /// <param name="storeId">store that one is ordering from</param>
+        /// <returns>OrderItem if added, null if already in order</returns>
         public OrderItem AddOrderItem(OrderItem orderItem, int storeId)
         {
             try {
@@ -835,7 +845,12 @@ namespace DSDL
                 return orderItem;
             }
         }
-
+        /// <summary>
+        /// Find dog by breed and gender
+        /// </summary>
+        /// <param name="breed">Breed of dog to be found</param>
+        /// <param name="gender">Gender of dog to be found</param>
+        /// <returns>Dog in the database, null otherwise</returns>
         public Dog FindDog(string breed, char gender)
         {
             try
@@ -853,6 +868,13 @@ namespace DSDL
                 return null;
             }
         }
+        /// <summary>
+        /// Method that decrements inventory for orders that have been purchased 
+        /// </summary>
+        /// <param name="storeId">Id of the store to decrement from</param>
+        /// <param name="dogId">DogId of dog to be decremented</param>
+        /// <param name="quant"></param>
+        /// <returns>Inventory if found, null otherwise</returns>
         public Inventory DecInv(int storeId, int dogId, int quant)
         {
             try
@@ -877,7 +899,10 @@ namespace DSDL
                 return null;
             }
         }
-
+        /// <summary>
+        /// Method that gets the whole list of dogs in the database
+        /// </summary>
+        /// <returns>List<Dog> in DB</returns>
         public List<Dog> GetDogs()
         {
             try
@@ -891,7 +916,11 @@ namespace DSDL
                 return null;
             }
         }
-
+        /// <summary>
+        /// Add inputted dog to the list of dogs in the database
+        /// </summary>
+        /// <param name="dog">dog to be added</param>
+        /// <returns>dog added, null if already found</returns>
         public Dog AddDog(Dog dog)
         {
             try {
