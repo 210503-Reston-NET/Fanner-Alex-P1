@@ -26,10 +26,12 @@ namespace DSWebUI.Models
         [Required]
         [Display(Name = "Dogs In Database")]
         public string DogString { get; set; }
+        [Display(Name = "Dog Id")]
         public int DogId { get; set; }
         [Required]
         [Range(1, 100, ErrorMessage = "Must be between 1 and 100")]
         public int Quantity { get; set; }
+        [Display(Name = "Store Id")]
         public int StoreLocationId { get; set; }
         public StoreLocation Store { get; set; }
        

@@ -11,14 +11,16 @@ namespace DSWebUI.Models
     {
         public BuyerHistoryVM() { }
         [Required]
-        [Display(Name = "Your Phone Number")]
+        [Display(Name = "Phone Number")]
         public long BuyerNumber { get; set; }
         [Display(Name = "How Would You Like The Orders Displayed?")]
         [Required]
         public int OrderOption { get; set; }
         public int OrderId { get; set; }
         public int StoreId { get; set; }
+        [Display(Name = "User Phone Number")]
         public long BuyerId { get; set; }
+        [Display(Name = "Buyer Name")]
         public string BuyerName { get; set; }
         [Display(Name = "Store Name")]
         public string StoreName { get; set; }

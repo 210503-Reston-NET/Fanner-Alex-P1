@@ -21,7 +21,7 @@ namespace DSWebUI.Models
         }
         public int Id { get; set; }
 
-      
+        [Display(Name = "Manager Number")]      
         public long CurrentManager { get; set; }
         /// <summary>
         /// String representing the address of the store.

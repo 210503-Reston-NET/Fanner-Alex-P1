@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using DSModels;
@@ -10,8 +11,11 @@ namespace DSWebUI.Models
     public class DogOrderVM
     {
         public int Id { get; set; }
+        [Display(Name = "Store Id")]
         public int StoreId { get; set; }
+        [Display(Name = "Buyer Number")]
         public long BuyerId { get; set; }
+        [Display(Name = "Order Date")]
         public DateTime OrderDate { get; set; }
 
         /// <summary>

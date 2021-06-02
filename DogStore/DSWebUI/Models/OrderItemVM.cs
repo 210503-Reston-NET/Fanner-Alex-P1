@@ -11,8 +11,10 @@ namespace DSWebUI.Models
         public OrderItemVM() { }
 
         public string Breed { get; set; }
+        [Display(Name = "Order Id")]
         public int OrderId { get; set; }
         public char Gender { get; set; }
+        [Display(Name = "Dog Id")]
         public int DogId { get; set; }
         public double Price { get; set; }
         public List<string> DogStringList { get; set; }
