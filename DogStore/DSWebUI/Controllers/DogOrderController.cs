@@ -35,6 +35,7 @@ namespace DSWebUI.Controllers
                 orderItemVM.Breed = dog.Breed;
                 orderItemVM.Gender = dog.Gender;
                 orderItemVM.Quantity = o.Quantity;
+                orderItemVM.Price = dog.Price;
                 orderItemVMs.Add(orderItemVM);
             }
             return View(orderItemVMs);

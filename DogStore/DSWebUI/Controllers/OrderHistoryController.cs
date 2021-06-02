@@ -45,7 +45,7 @@ namespace DSWebUI.Controllers
                 }
                 buyerHistory.StoreName = store.Location;
                 buyerHistory.Address = store.Address;
-                buyerHistory.Total = dO.Total;
+                buyerHistory.Total = Math.Round(dO.Total,2);
                 buyerHistory.OrderDate = dO.OrderDate;
                 buyerHistories.Add(buyerHistory);
             }
@@ -75,7 +75,7 @@ namespace DSWebUI.Controllers
                 }
                 buyerHistory.BuyerName = dogBuyer.Name;
                 buyerHistory.BuyerNumber = id;
-                buyerHistory.Total = dO.Total;
+                buyerHistory.Total = Math.Round(dO.Total,2);
                 buyerHistory.OrderDate = dO.OrderDate;
                 buyerHistories.Add(buyerHistory);
             }
