@@ -52,5 +52,6 @@ namespace DSDL
         Dog FindDog(string breed, char gender);
         List<Dog> GetDogs();
         Dog AddDog(Dog dog);
+        Inventory DecInv(int storeId, int dogId, int quant);
     }
 }

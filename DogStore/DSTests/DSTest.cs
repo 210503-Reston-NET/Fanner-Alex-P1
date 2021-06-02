@@ -8,6 +8,7 @@ using Model = DSModels;
 
 using System.Linq;
 using DSModels;
+using DSBL;
 
 namespace DSTests
 {
@@ -302,6 +303,123 @@ namespace DSTests
                 string expected = "Shiba Inu";
                 string actual = dog.Breed;
                 Assert.Equal(expected, actual);
+            }
+        }
+        /// <summary>
+        /// Testing new dec inv method
+        /// </summary>
+        [Fact]
+        public void DecInvShouldDecrement()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IRepo _repoDS = new Repo(context);
+                Model.DogManager dogManager = new Model.DogManager(1234567890, "Test, TX", "Texas Toaster");
+                _repoDS.AddManager
+                (
+                    dogManager
+                );
+                Model.StoreLocation storeLocation = new Model.StoreLocation("Test, TX", "Test Dogs");
+                _repoDS.AddStoreLocation(
+                    storeLocation,
+                    dogManager
+                );
+                Model.Dog dog = new Model.Dog("Special Breed", 'f', 1000);
+                _repoDS.AddItem(
+                    storeLocation,
+                    dog,
+                    5
+                );
+                _repoDS.DecInv(_repoDS.FindStore("Test, TX", "Test Dogs").Id, _repoDS.FindDog("Special Breed", 'f').Id, 2);
+                Item inv = _repoDS.GetStoreInventory("Test, TX", "Test Dogs")[0];
+                int expected = 3;
+                int actual = inv.Quantity;
+                Assert.Equal(expected, actual);
+            }
+        }
+        /// <summary>
+        /// Testing the add dog and get dogs methods
+        /// </summary>
+        [Fact]
+        public void AddDogShouldBeGotten()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IRepo _repoDS = new Repo(context);
+                _repoDS.AddDog(new Dog("Special Breed", 'f', 1000));
+                int expected = 1;
+                int actual = _repoDS.GetDogs().Count;
+                Assert.Equal(expected, actual);
+            }
+        }
+        /// <summary>
+        /// Making sure adding the same dog returns null
+        /// </summary>
+        [Fact]
+        public void DoubleAddedDogShouldBeNull()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IRepo _repoDS = new Repo(context);
+                _repoDS.AddDog(new Dog("Special Breed", 'f', 1000));
+                Assert.Null(_repoDS.AddDog(new Dog("Special Breed", 'f', 1000)));
+            }
+        }
+        /// <summary>
+        /// Makes sure new GetOrder method works
+        /// </summary>
+        [Fact]
+        public void GetOrderByIdGetsOrder()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IRepo _repoDS = new Repo(context);
+                Model.DogManager dogManager = new Model.DogManager(1234567890, "Test, TX", "Texas Toaster");
+                _repoDS.AddManager
+                (
+                    dogManager
+                );
+                Model.StoreLocation storeLocation = new Model.StoreLocation("Test, TX", "Test Dogs");
+                _repoDS.AddStoreLocation(
+                    storeLocation,
+                    dogManager
+                );
+                storeLocation = _repoDS.FindStore("Test, TX", "Test Dogs");
+                DogBuyer dogBuyer = new Model.DogBuyer("Ama Test", "Wired, Wyoming", 9638527410);
+                _repoDS.AddBuyer(dogBuyer);
+                DogOrder addingOrder = new DogOrder(dogBuyer, 0, storeLocation);
+                addingOrder.OrderDate = DateTime.Now;
+                _repoDS.AddOrder(addingOrder);
+                DogOrder dogOrder = _repoDS.FindUserOrders(dogBuyer.PhoneNumber,1)[0];
+                DogOrder order = _repoDS.GetOrder(dogOrder.Id);
+                long expected = dogBuyer.PhoneNumber;
+                long actual = order.BuyerId;
+                Assert.Equal(expected, actual);
+
+            }
+        }
+        /// <summary>
+        /// Makes sure AddOrderItem throws null if requested too much of an item
+        /// </summary>
+        [Fact]
+        public void AddOrderItemNullIfTooMuch()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IOrderBL _orderBL = new OrderBL(context);
+                Assert.Null(_orderBL.AddOrderItem(new OrderItem() { Quantity = 5},4,1));
+            }
+        }
+        /// <summary>
+        /// Makes sure AddOrderItem throws null if requested 0 much of an item
+        /// </summary>
+        [Fact]
+        public void AddOrderItemNullIfNone()
+        {
+            using (var context = new FannerDogsDBContext(options))
+            {
+                IOrderBL _orderBL = new OrderBL(context);
+                Assert.Null(_orderBL.AddOrderItem(new OrderItem() { Quantity = 5 }, 4, 1));
             }
         }
         private void Seed(){
