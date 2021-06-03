@@ -202,3 +202,18 @@
 2021-06-01 22:11:53.980 -05:00 [INF] Successfully retrieved stores
 2021-06-01 22:11:53.999 -05:00 [INF] Successfully retrieved stores
 2021-06-01 22:11:54.019 -05:00 [INF] Successfully retrieved stores
+2021-06-02 15:28:08.385 -05:00 [INF] Initial build starting
+2021-06-02 15:28:20.979 -05:00 [INF] Manager with number 6127500745 retrieved from the db
+2021-06-02 15:28:21.107 -05:00 [INF] Got manager's stores for: 6127500745
+2021-06-02 15:28:23.225 -05:00 [INF] Successfully retrieved stores
+2021-06-02 15:28:23.248 -05:00 [INF] Successfully retrieved stores
+2021-06-02 15:28:23.359 -05:00 [INF] Here's the item I'm about to create
+2021-06-02 15:28:23.360 -05:00 [INF] Dobermann
+2021-06-02 15:28:23.360 -05:00 [INF] f
+2021-06-02 15:28:23.360 -05:00 [INF] 525.8
+2021-06-02 15:28:34.632 -05:00 [INF] Successfully retrieved stores
+2021-06-02 15:28:34.661 -05:00 [INF] Successfully retrieved stores
+2021-06-02 15:28:34.732 -05:00 [INF] Here's the item I'm about to create
+2021-06-02 15:28:34.732 -05:00 [INF] Dobermann
+2021-06-02 15:28:34.732 -05:00 [INF] f
+2021-06-02 15:28:34.732 -05:00 [INF] 525.8
